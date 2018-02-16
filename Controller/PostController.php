@@ -1,6 +1,7 @@
 <?php
 
 require_once('Model/PostManager.php');
+require_once('Model/CommentManager.php');
 require_once('lib/Post.php');
 
 class PostController
@@ -16,15 +17,22 @@ class PostController
 	{
 		$postManager = new PostManager();
 		$posts = $postManager->getAllPosts();
-		require('View/listPostsView.php');
+		require('View/Post/listPostsView.php');
 	}
 
-	public function postById($postId)
+	public function postWithComments($postId)
 	{
 		$postManager = new PostManager();
-		$postById = $postManager->getPostById($_GET['id']);
+		$post = $postManager->getPostById($_GET['id']);
+		
+		$commentManager = new CommentManager();
+		$comments = $commentManager->getPublishedCommentsByPostId($_GET['id']);
+		require('View/Post/postView.php');
+	}
 
-		return $postById; //POURQUOI JE DOIS RETURN LA ?
+	public function insertPostForm()
+	{
+		require('View/Post/addPost.php');
 	}
 
 	public function insertPost()
@@ -40,7 +48,15 @@ class PostController
 				'publishedAt' => (date_format(new \Datetime(), 'Y-m-d H:i:s'))
 			]);
 			$postManager->addPost($post);
+			require('View/Post/addPostAction.php');
 		}
+	}
+
+	public function updatePostForm($postId)
+	{
+		$postManager = new PostManager();
+		$post = $postManager->getPostById($postId);
+		require('View/Post/updatePost.php');
 	}
 
 	public function updatePost($postId)
@@ -54,6 +70,8 @@ class PostController
 		$postToUpdate->setUpdatedAt(date_format(new \Datetime(), 'Y-m-d H:i:s'));
 
 		$postManager->updatePost($postToUpdate);
+
+		require('View/Post/updatePostAction.php');
 	}
 
 	public function deletePost($postId)
@@ -62,5 +80,7 @@ class PostController
 		$postToDelete = $postManager->getPostById($_GET['id']);
 
 		$postManager->deletePost($postToDelete);
+
+		require('View/Post/deletePost.php');
 	}
 }

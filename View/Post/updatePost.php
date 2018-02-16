@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<form method="post" action="index.php?action=updatePost&id=<?= $post->getId(); ?>">
+<form method="post" action="index.php?action=updatePostAction&id=<?= $post->getId(); ?>">
 
 	<p><label for="author">Auteur</label>
 	<input type="text" id="author" name="author" value="<?= $post->getAuthor(); ?>" /></p>
@@ -21,4 +21,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('layout.php'); ?>
+<?php require(__DIR__ . '/../layout.php'); ?>
