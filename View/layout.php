@@ -51,6 +51,7 @@ error_reporting(E_ALL);
                         <li><a href="index.php">Accueil</a></li>
                         <li><a href="index.php?action=listPosts" ="">Liste des posts</a></li>
                         <li><a href="index.php?action=addPost" ="">Ajouter un post</a></li>
+                        <li><a href="index.php?action=listComments">Liste des commentaires</a></li>
                     </ul>
                 </div>
             </div>
