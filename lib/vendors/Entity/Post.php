@@ -1,6 +1,9 @@
 <?php
+namespace Entity;
 
-class Post
+use \EmmaM\Entity;
+
+class Post extends Entity
 {
 	protected $id;
 	protected $author;	
@@ -10,26 +13,10 @@ class Post
 	protected $publishedAt;
 	protected $updatedAt;
 
-	public function __construct(array $donnees = null)
-	{
-		if (!empty($donnees))
-		{
-			$this->hydrate($donnees);
-		}
-	}
-
-	private function hydrate(array $donnees)
-	{
-		foreach ($donnees as $key => $value)
-		{
-			$method = 'set' . ucfirst($key);
-
-			if (is_callable([$this, $method]))
-			{
-				$this->$method($value);
-			}
-		}
-	}
+	const INVALID_AUTHOR = 1;
+	const INVALID_TITLE = 2;
+	const INVALID_PREFACE = 3;
+	const INVALID_CONTENT = 4;	
 
 	public function getLastDate()
 	{
@@ -86,9 +73,8 @@ class Post
 			$this->author = $author;
 		}
 		else {
-			throw new \InvalidArgumentException('Le nom de l\'auteur doit être une chaine de caractères non nulle.');
+			$this->errors[] = self::INVALID_AUTHOR;
 		}
-		
 	}
 
 	public function setTitle($title)
@@ -98,7 +84,7 @@ class Post
 			$this->title = $title;
 		}
 		else {
-			throw new \InvalidArgumentException('Le titre doit être une chaine de caractères non nulle.');
+			$this->errors[] = self::INVALID_TITLE;
 		}	
 	}
 
@@ -109,7 +95,7 @@ class Post
 			$this->preface = $preface;
 		}
 		else {
-			throw new \InvalidArgumentException('La présentation de l\'article doit être une chaine de caractères non nulle.');
+			$this->errors[] = self::INVALID_PREFACE;
 		}
 	}
 
@@ -120,7 +106,7 @@ class Post
 			$this->postContent = $postContent;
 		}
 		else {
-			throw new \InvalidArgumentException('Le contenu de l\'article doit être une chaine de caractères non nulle.');
+			$this->errors[] = self::INVALID_CONTENT;
 		}
 	}
 

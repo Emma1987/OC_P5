@@ -1,6 +1,6 @@
 <?php $title = 'Emmanuelle Mercadal'; ?>
 
-<?php ob_start(); ?>
+<div class="home-content">
     <p class="introduction">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
 
     <section id="portfolio">
@@ -17,7 +17,7 @@
             {
             ?>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="index.php?action=post&id=<?= $post->getId(); ?>" class="portfolio-link" data-toggle="modal">
+                    <a href="post-<?= $post->getId(); ?>" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
 
@@ -34,7 +34,4 @@
             </div>
         </div>
     </section>
-
-<?php $content = ob_get_clean(); ?>
-
-<?php require('layout.php');
+</div>
