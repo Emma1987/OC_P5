@@ -1,7 +1,7 @@
 <?php
 namespace Entity;
 
-use \EmmaM\Entity;
+use EmmaM\Entity;
 
 class Post extends Entity
 {

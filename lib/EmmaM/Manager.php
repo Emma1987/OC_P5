@@ -7,8 +7,8 @@ class Manager
 	{
 		try
 		{
-			$bdd = new \PDO('mysql:host=localhost;dbname=blogperso;charset=utf8', 'root', 'root');
-			return $bdd;
+			$db = new \PDO('mysql:host=localhost;dbname=blogperso;charset=utf8', 'root', 'root');
+			return $db;
 		}
 		catch(Exception $e)
 		{

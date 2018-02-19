@@ -20,7 +20,6 @@
                     <a href="post-<?= $post->getId(); ?>" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-
                                 <i class="fa fa-search-plus fa-3x"></i>
                                 <p><?= $post->getTitle(); ?></p>
                             </div>

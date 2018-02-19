@@ -6,4 +6,8 @@
     <route url="/addPost" module="Post" action="insertPost" ></route>
     <route url="/updatePost-([0-9]+)" module="Post" action="updatePost" vars="id" ></route>
     <route url="/deletePost-([0-9]+)" module="Post" action="deletePost" vars="id" ></route>
+    <route url="/addComment-([0-9]+)" module="Comment" action="insertComment" vars="id" ></route>
+    <route url="/listComments" module="Comment" action="listComments" ></route>
+    <route url="/validateComment-([0-9]+)" module="Comment" action="validateComment" vars="id" ></route>
+    <route url="/deleteComment-([0-9]+)" module="Comment" action="deleteComment" vars="id" ></route>
 </routes>
