@@ -1,6 +1,9 @@
 <?php
+namespace Entity;
 
-class Comment
+use EmmaM\Entity;
+
+class Comment extends Entity
 {
 	protected $id;
 	protected $author;
@@ -8,27 +11,6 @@ class Comment
 	protected $commentDate;
 	protected $postId;
 	protected $online = 0;
-
-	public function __construct(array $donnees = null)
-	{
-		if (!empty($donnees))
-		{
-			$this->hydrate($donnees);
-		}
-	}
-
-	private function hydrate(array $donnees)
-	{
-		foreach ($donnees as $key => $value)
-		{
-			$method = 'set' . ucfirst($key);
-
-			if (is_callable([$this, $method]))
-			{
-				$this->$method($value);
-			}
-		}
-	}
 
 	// GETTERS & SETTERS
 

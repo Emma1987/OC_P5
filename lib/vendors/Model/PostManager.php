@@ -1,28 +1,17 @@
 <?php
+namespace Model;
 
-require_once ('lib/Post.php');
+use EmmaM\Manager;
+use Entity\Post;
 
-class PostManager
+class PostManager extends Manager
 {
-	private function getDbConnexion()
-	{
-		try
-		{
-			$db = new PDO('mysql:host=localhost;dbname=blogperso;charset=utf8', 'root', 'root');
-			return $db;
-		}
-		catch(Exception $e)
-		{
-			die('Erreur : '.$e->getMessage());
-		}	
-	}
-
 	public function getAllPosts()
 	{
 		$db = $this->getDbConnexion();
 
 		$requete = $db->query('SELECT * FROM Post ORDER BY publishedAt DESC');
-		$requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'Post');
+		$requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Post');
 		$posts = $requete->fetchAll();
 
 		return $posts;
@@ -33,7 +22,7 @@ class PostManager
 		$db = $this->getDbConnexion();
 
 		$requete = $db->query('SELECT * FROM Post ORDER BY publishedAt DESC LIMIT 6');
-		$requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'Post');
+		$requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Post');
 		$posts = $requete->fetchAll();
 		$requete->closeCursor();
 		return $posts;
@@ -46,7 +35,7 @@ class PostManager
 		$requete = $db->prepare('SELECT * FROM Post WHERE id = :id');
 		$requete->bindValue(':id', $postId, \PDO::PARAM_INT);
 		$requete->execute();
-		$requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'Post');
+		$requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Post');
 		$post = $requete->fetch();
 
 		return $post;
@@ -65,6 +54,8 @@ class PostManager
         $requete->bindValue(':publishedAt', $post->getPublishedAt());
 
 		$requete->execute();
+
+		return $postId = $bdd->lastInsertId();
 	}
 
 	public function updatePost(Post $post)

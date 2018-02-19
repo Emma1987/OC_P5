@@ -1,8 +1,3 @@
-<?php
-ini_set('display_errors','on');
-error_reporting(E_ALL);
-?>
-
 <!DOCTYPE html>
 <html xmlns:og="http://ogp.me/ns#">
 
@@ -48,10 +43,10 @@ error_reporting(E_ALL);
                 <div class="col-sm-3 header-content" id="page-top">Emmanuelle MERCADAL</div>
                 <div class="col-sm-9 header-content">
                     <ul>
-                        <li><a href="index.php">Accueil</a></li>
-                        <li><a href="index.php?action=listPosts" ="">Liste des posts</a></li>
-                        <li><a href="index.php?action=addPost" ="">Ajouter un post</a></li>
-                        <li><a href="index.php?action=listComments">Liste des commentaires</a></li>
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="listPosts">Liste des posts</a></li>
+                        <li><a href="addPost">Ajouter un post</a></li>
+                        <li><a href="listComments">Liste des commentaires</a></li>
                     </ul>
                 </div>
             </div>
