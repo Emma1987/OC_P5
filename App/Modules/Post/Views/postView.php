@@ -6,11 +6,34 @@
 	<hr class="star-primary">
 
 	<div class="panel panel-default post-unique">
+		<!-- POST -->
 		<p class="text-center"><i class="fa fa-user fa-fw"></i> <?= nl2br(htmlspecialchars($post->getAuthor())); ?></p>
 		<p class="text-center"><em>Dernière modification, le <?php echo $post->getPublishedAt(); ?></em></p>
 
 		<p class="justify">Chapô : <br /><?= nl2br(htmlspecialchars($post->getPreface())); ?></p>
 		<p class="justify">Contenu : <br /> <?= nl2br($post->getPostContent()); ?></p>
+
+		<!-- CATEGORIES -->
+		<div class="panel-categories text-center">
+			<p>Catégories associées :</p>
+			<?php
+			if (empty($categories))
+			{
+				echo 'Aucune catégorie associé à ce post.';
+			}
+			else {
+				foreach ($categories as $category)
+				{
+					?>
+					<div class="btn btn-default">
+						<i class="glyphicon glyphicon-tag"></i>
+						<?= htmlspecialchars($category->getName()); ?>
+					</div><br />
+				<?php
+				}
+			}
+			?>
+		</div>
 
 		<!-- COMMENTAIRES -->
 		<div class="panel-body">
