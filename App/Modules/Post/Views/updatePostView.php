@@ -30,6 +30,33 @@
 							</div>
 						</div>
 
+						<!-- IMAGES -->
+						<div class="list-group-item">
+						<?php
+						if (!empty($image))
+						{
+							?>
+							<div>
+								<p>Image</p>
+								<img src="<?= '/z_blog/Web/uploads/img/' . $image->getTitle(); ?>" alt="<?= $image->getTitle(); ?>" class="updateImage" /><br/>
+								<a href="deleteImage-<?= $image->getId(); ?>-<?= $post->getId(); ?>">Supprimer cette image</a>
+							</div>
+							<?php
+						}
+						else {
+						?>
+							<p>Ajoutez une photo</p>
+							<div class="form-group">
+								<label for="imageTitle">Titre de l'image</label>
+								<input class="form-control" type="text" id="imageTitle" name="imageTitle" placeholder="Titre de la photo" />
+							</div>
+							<label for="image">Image</label>
+							<input type="file" name="image" id="image" /><br />
+						<?php
+						}
+						?>
+						</div>
+
 						<!-- CATEGORIES -->
 						<div class="list-group-item">
 							<div class="row">

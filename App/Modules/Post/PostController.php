@@ -5,21 +5,26 @@ use EmmaM\Controller;
 use EmmaM\HTTPRequest;
 use Entity\Post;
 use Entity\Comment;
+use Entity\Image;
 
 class PostController extends Controller
 {
 	public function executeIndex(HTTPRequest $request)
 	{
 		$posts = $this->manager->getManagerOf('Post')->getSixLastPosts();
+		$images = $this->manager->getManagerOf('Image')->getAllImages();
 
 		$this->page->addVar('posts', $posts);
+		$this->page->addVar('images', $images);
 	}
 
 	public function executeListPosts()
 	{
 		$listPosts = $this->manager->getManagerOf('Post')->getAllPosts();
+		$images = $this->manager->getManagerOf('Image')->getAllImages();
 
 		$this->page->addVar('listPosts', $listPosts);
+		$this->page->addVar('images', $images);
 	}
 
 	public function executePost(HTTPRequest $request)
@@ -27,10 +32,12 @@ class PostController extends Controller
 		$post = $this->manager->getManagerOf('Post')->getPostById($request->getData('id'));
 		$comments = $this->manager->getManagerOf('Comment')->getPublishedCommentsByPostId($request->getData('id'));
 		$categories = $this->manager->getManagerOf('Category')->getCategoriesByPost($request->getData('id'));
+		$image = $this->manager->getManagerOf('Image')->getImageByPost($request->getData('id'));	
 
 		$this->page->addVar('post', $post);
 		$this->page->addVar('comments', $comments);
 		$this->page->addVar('categories', $categories);
+		$this->page->addVar('image', $image);
 	}
 
 	public function executeInsertPost(HTTPRequest $request)
@@ -54,6 +61,18 @@ class PostController extends Controller
 				$this->manager->getManagerOf('Category')->addCategoriesToPost($postId, $category);
 			}
 
+			$image = new Image([
+				'tmpName'	=> $_FILES['image']['tmp_name'],
+				'title'		=> $request->postData('imageTitle'),
+				'extension'	=> $_FILES['image']['type'],
+				'size'		=> $_FILES['image']['size'],
+				'postId'	=> $postId,
+				'url'		=> '/../../Web/uploads/img/' . $request->postData('imageTitle')
+			]);
+
+			$this->manager->getManagerOf('Image')->addImage($image);
+			$image->save();
+
 			$this->app->getHttpResponse()->redirect('/listPosts');
 		}
 
@@ -64,10 +83,12 @@ class PostController extends Controller
 		$post = $this->manager->getManagerOf('Post')->getPostById($request->getData('id'));
 		$selectedCategories = $this->manager->getManagerOf('Category')->getCategoriesByPost($request->getData('id'));
 		$categories = $this->manager->getManagerOf('Category')->getAllCategories();
+		$image = $this->manager->getManagerOf('Image')->getImageByPost($request->getData('id'));
 
 		$this->page->addVar('post', $post);
 		$this->page->addVar('categories', $categories);
 		$this->page->addVar('selectedCategories', $selectedCategories);
+		$this->page->addVar('image', $image);
 
 		if ($request->postExists('preface'))
 		{
@@ -84,6 +105,21 @@ class PostController extends Controller
 				{
 					$this->manager->getManagerOf('Category')->addCategoriesToPost($request->getData('id'), $category);
 				}
+			}
+
+			if (!empty($_FILES['image']))
+			{
+				$image = new Image([
+					'tmpName'	=> $_FILES['image']['tmp_name'],
+					'title'		=> $request->postData('imageTitle'),
+					'extension'	=> $_FILES['image']['type'],
+					'size'		=> $_FILES['image']['size'],
+					'postId'	=> $post->getId(),
+					'url'		=> '/../../Web/uploads/img/' . $request->postData('imageTitle')
+				]);
+
+				$this->manager->getManagerOf('Image')->addImage($image);
+				$image->save();
 			}
 
 			$this->app->getHttpResponse()->redirect('/post-' . $request->getData('id'));

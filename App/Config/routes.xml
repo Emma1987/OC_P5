@@ -16,4 +16,5 @@
     <route url="/addCategoryUpdate" module="Category" action="addCategoryUpdate" ></route>
     <route url="/removeCategory-([0-9]+)" module="Category" action="removeCategory" vars="id" ></route>
     <route url="/removePostCategory-([0-9]+)-([0-9]+)" module="Category" action="removePostCategory" vars="postId,categoryId" ></route>
+    <route url="/deleteImage-([0-9]+)-([0-9]+)" module="Image" action="deleteImage" vars="id,postId" ></route>
 </routes>
