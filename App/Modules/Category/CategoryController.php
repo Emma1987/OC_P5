@@ -17,7 +17,7 @@ class CategoryController extends Controller
 	public function executeAddCategory(HTTPRequest $request)
 	{
 		$this->addCategory($request);
-		$this->app->getHttpResponse()->redirect('/z_blog/admin/listCategories');
+		$this->app->getHttpResponse()->redirect('/admin/listCategories');
 	}
 
 	public function executeAddCategoryNewPost(HTTPRequest $request)
@@ -42,7 +42,7 @@ class CategoryController extends Controller
 	public function executeRemovePostCategory(HTTPRequest $request)
 	{
 		$this->manager->getManagerOf('Category')->removePostCategory($request->getData('postId'), $request->getData('categoryId'));
-		$this->app->getHttpResponse()->redirect('/z_blog/updatePost-' . $request->getData('postId'));
+		$this->app->getHttpResponse()->redirect('/updatePost-' . $request->getData('postId'));
 	}
 
 	private function addCategory(HTTPRequest $request)

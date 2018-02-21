@@ -33,6 +33,17 @@
 							</div>
 						</div>
 
+						<!-- IMAGES -->
+						<div class="list-group-item">
+							<p>Ajoutez une photo</p>
+							<div class="form-group">
+								<label for="imageTitle">Titre de l'image</label>
+								<input class="form-control" type="text" id="imageTitle" name="imageTitle" placeholder="Titre de la photo" />
+							</div>
+							<label for="image">Image</label>
+							<input type="file" name="image" id="image" /><br />
+						</div>
+
 						<!-- CATEGORIES -->
 						<div class="list-group-item">
 							<p>Choisissez une catégorie</p>
@@ -45,7 +56,9 @@
 							}
 							?>
 						</div>
-					<input type="submit" class="btn btn-success" value="Valider" />
+
+						<!-- SUBMIT BUTTON -->
+						<input type="submit" class="btn btn-success" value="Valider" />
 					</form>
 				</div>
 			</div>

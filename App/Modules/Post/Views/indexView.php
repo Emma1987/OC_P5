@@ -24,7 +24,26 @@
                                 <p><?= $post->getTitle(); ?></p>
                             </div>
                         </div>
-                        <img src="Web/img/portfolio/cake.png" class="img-responsive" alt="">
+                        <!-- IMAGE -->
+                        <?php
+                        $match = 0;
+                        foreach ($images as $image)
+                        {
+                            if ($image->getPostId() == $post->getId())
+                            {
+                                $match ++;
+                            ?>
+                                <img src="<?= '/z_blog/Web/uploads/img/' . $image->getTitle(); ?>" class="img-responsive" alt="<?= $image->getTitle(); ?>" />
+                            <?php   
+                            }
+                        }
+                        if ($match != 1)
+                        {
+                        ?>
+                            <img src="/z_blog/Web/uploads/img/noimage.png" class="img-responsive" alt="No Image" />
+                        <?php           
+                        }   
+                        ?>
                     </a>
                 </div>
             <?php

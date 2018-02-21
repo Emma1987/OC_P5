@@ -35,6 +35,26 @@
 			?>
 		</div>
 
+		<!-- IMAGE -->
+		<p>
+		<?php
+		if (!empty($image))
+		{
+			?>
+			<div class="imagePostUnique text-center">
+				<img src="<?= '/z_blog/Web/uploads/img/' . $image->getTitle() ?>" alt="<?= $image->getTitle(); ?>" />
+			</div>
+			<?php
+		}
+		?>
+		</p>
+	</div>
+
+	<div class="panel panel-default comments">
+		<div class="panel-heading">
+			<i class="fa fa-comments fa-fw"></i> COMMENTAIRES
+		</div>
+
 		<!-- COMMENTAIRES -->
 		<div class="panel-body">
 			<?php
