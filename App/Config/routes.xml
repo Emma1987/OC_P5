@@ -6,8 +6,12 @@
     <route url="/post-([0-9]+)" module="Post" action="post" layout="front" vars="id" ></route>
     <route url="/addComment-([0-9]+)" module="Comment" action="insertComment" layout="front" vars="id" ></route>
     <route url="/register" module="User" action="register" layout="front" ></route>
+    <route url="/confirm-([0-9]+)-([a-zA-Z0-9]+)" module="User" action="confirmRegister" layout="front" vars="id,token" ></route>
     <route url="/login" module="User" action="login" layout="front" ></route>
+    <route url="/resetPass" module="User" action="resetPass" layout="front" ></route>
+    <route url="/confirmReset-([0-9]+)-([a-zA-Z0-9]+)" module="User" action="confirmReset" layout="front" vars="id,resetToken" ></route>
     <route url="/logout" module="User" action="logout" ></route>
+    <route url="/contact" module="Contact" action="contactPage" layout="front" ></route>
 
     <!-- ADMIN -->
     <route url="/admin/" module="Admin" action="indexAdmin" layout="admin" ></route>
