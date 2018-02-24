@@ -1,0 +1,19 @@
+{
+    "name": "EmmaM",
+    "authors": [
+        {
+            "name": "Emmanuelle M",
+            "email": "mercadal.em@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+        	"App\\": "App/",
+        	"EmmaM\\": "lib/EmmaM/",
+        	"Model\\": "lib/vendors/Model",
+        	"Entity\\": "lib/vendors/Entity/"
+        }
+    },
+    "require": {
+    }
+}
