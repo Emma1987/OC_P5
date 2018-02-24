@@ -4,6 +4,7 @@ namespace App\Modules\Comment;
 use EmmaM\Controller;
 use EmmaM\HTTPRequest;
 use Entity\Comment;
+use EmmaM\Session;
 
 class CommentController extends Controller
 {
@@ -24,7 +25,17 @@ class CommentController extends Controller
 			'commentDate' 	=> (date_format(new \Datetime(), 'Y-m-d H:i:s')),
 			'postId'		=> $request->getData('id')
 		]);
-		$this->manager->getManagerOf('Comment')->addComment($comment);
+
+		if (($errors = $comment->getErrors()) != null)
+		{
+			$comment->getErrorMessage();
+		}
+		else {
+			$this->manager->getManagerOf('Comment')->addComment($comment);
+			Session::getInstance()->setFlash('success', 'Votre commentaire a bien été ajouté. Il sera visible dès qu\'un administrateur l\'aura validé.');
+			$comment->mailNewComment();
+		}
+
 		$this->app->getHttpResponse()->redirect('post-' . $request->getData('id'));
 	}
 
@@ -35,6 +46,7 @@ class CommentController extends Controller
 		$comment->setOnline(TRUE);
 		$this->manager->getManagerOf('Comment')->validateComment($comment);
 
+		Session::getInstance()->setFlash('success', 'Le commentaire a bien été validé, et est désormais visible sur le site.');
 		$this->app->getHttpResponse()->redirect('listComments');
 	}
 
@@ -42,7 +54,8 @@ class CommentController extends Controller
 	{
 		$comment = $this->manager->getManagerOf('Comment')->getCommentById($request->getData('id'));
 		$this->manager->getManagerOf('Comment')->deleteComment($comment);
-
+		
+		Session::getInstance()->setFlash('success', 'Le commentaire a bien été supprimé.');
 		$this->app->getHttpResponse()->redirect('listComments');
 	}
 }

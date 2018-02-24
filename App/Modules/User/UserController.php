@@ -4,6 +4,7 @@ namespace App\Modules\User;
 use EmmaM\Controller;
 use EmmaM\HTTPRequest;
 use Entity\User;
+use EmmaM\Session;
 
 class UserController extends Controller
 {
@@ -36,10 +37,17 @@ class UserController extends Controller
 					'password'	=> password_hash($request->postData('password'), PASSWORD_BCRYPT)
 				]);
 
-				$userId = $this->manager->getManagerOf('User')->addUser($user);
+				if (($errors = $user->getErrors()) != null)
+				{
+					$user->getErrorMessage();
+				}
+				else {
+					$userId = $this->manager->getManagerOf('User')->addUser($user);
+					Session::getInstance()->setFlash('success', 'Un email vous a été envoyé pour confirmer votre inscription.');
+				}
 			}
 			else {
-			 	return $errorMessage;
+			 	Session::getInstance()->setFlash('danger', $errorMessage);
 			}
 		}
 	}
@@ -52,17 +60,21 @@ class UserController extends Controller
 			{
 				if (password_verify($request->postData('password'), $user->getPassword()) && ($user->getRole() != 0))
 				{
+					Session::getInstance()->setAttribute('auth', $user);
+					Session::getInstance()->setFlash('success', 'Vous êtes maintenant connecté !');
 					$this->app->getHttpResponse()->redirect('/');
 				}
 			}
 			else {
-				return $errorMessage = 'Vos identifiants n\'ont pas été reconnus';
+				Session::getInstance()->setFlash('danger', 'Vos identifiants n\'ont pas été reconnus.');
 			}
 		}
 	}
 
 	public function executeLogout()
 	{
+		Session::getInstance()->setAttribute('auth', null);
+		Session::getInstance()->setFlash('success', 'Vous êtes maintenant déconnecté(e) !');
 		$this->app->getHttpResponse()->redirect('/');
 	}
 
@@ -76,6 +88,7 @@ class UserController extends Controller
 	public function executeDeleteUser(HTTPRequest $request)
 	{
 		$this->manager->getManagerOf('User')->deleteUser($request->getData('id'));
+		Session::getInstance()->setFlash('success', 'Cet utilisateur a bien été supprimé.');
 		$this->app->getHttpResponse()->redirect('/listUsers');
 	}
 }

@@ -36,18 +36,21 @@ class CategoryController extends Controller
     public function executeRemoveCategoryNewPost(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Category')->removeCategory($request->getData('id'));
+        Session::getInstance()->setFlash('success', 'La catégorie a bien été supprimée.');
         $this->app->getHttpResponse()->redirect('/addPost');
     }
 
     public function executeRemoveCategory(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Category')->removeCategory($request->getData('id'));
+        Session::getInstance()->setFlash('success', 'La catégorie a bien été supprimée.');
         $this->app->getHttpResponse()->redirect('/listCategories');
     }
 
     public function executeRemovePostCategory(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Category')->removePostCategory($request->getData('postId'), $request->getData('categoryId'));
+        Session::getInstance()->setFlash('success', 'La catégorie a bien été supprimée de cet article.');
         $this->app->getHttpResponse()->redirect('/updatePost-' . $request->getData('postId'));
     }
 
@@ -59,7 +62,13 @@ class CategoryController extends Controller
                 'name'  => $request->postData('newCategory')
             ]);
 
-            $this->manager->getManagerOf('Category')->addNewCategory($category);
+            if (($errors = $category->getErrors()) != null) {
+                $category->getErrorMessage();
+                return;
+            } else {
+                $this->manager->getManagerOf('Category')->addNewCategory($category);
+            }
+            Session::getInstance()->setFlash('success', 'Une nouvelle catégorie a été ajoutée.');
         }
     }
 }

@@ -6,6 +6,7 @@ use EmmaM\HTTPRequest;
 use Entity\Post;
 use Entity\Comment;
 use Entity\Image;
+use EmmaM\Session;
 
 class PostController extends Controller
 {
@@ -38,6 +39,12 @@ class PostController extends Controller
 		$this->page->addVar('comments', $comments);
 		$this->page->addVar('categories', $categories);
 		$this->page->addVar('image', $image);
+
+		if (Session::getInstance()->isActive())
+		{
+			$user = $this->manager->getManagerOf('User')->getUserById($_SESSION['auth']->getId());
+			$this->page->addVar('user', $user);
+		}
 	}
 
 	public function executeInsertPost(HTTPRequest $request)
@@ -50,6 +57,7 @@ class PostController extends Controller
 
 		if ($request->postExists('authorValue'))
 		{
+			// POST
 			$post = new Post([
 			 	'author'	=> $request->postData('authorValue'),
 			 	'title'		=> $request->postData('title'),
@@ -57,25 +65,50 @@ class PostController extends Controller
 			 	'postContent' => $request->postData('postContent'),
 			 	'publishedAt' => (date_format(new \Datetime(), 'Y-m-d H:i:s'))
 			]);
-			$postId = $this->manager->getManagerOf('Post')->addPost($post);
-
-			foreach ($categories = $request->postData('categoryName') as $category)
+			
+			if (($errors = $post->getErrors()) != null)
 			{
-				$this->manager->getManagerOf('Category')->addCategoriesToPost($postId, $category);
+				$post->getErrorMessage();
+				return;
+			}
+			else {
+				$postId = $this->manager->getManagerOf('Post')->addPost($post);
 			}
 
-			$image = new Image([
-				'tmpName'	=> $_FILES['image']['tmp_name'],
-				'title'		=> $request->postData('imageTitle'),
-				'extension'	=> $_FILES['image']['type'],
-				'size'		=> $_FILES['image']['size'],
-				'postId'	=> $postId,
-				'url'		=> '/../../Web/uploads/img/' . $request->postData('imageTitle')
-			]);
+			// CATEGORIES
+			if (!empty($request->postData('categoryName')))
+			{
+				foreach ($categories = $request->postData('categoryName') as $category)
+				{
+					$this->manager->getManagerOf('Category')->addCategoriesToPost($postId, $category);
+				}
+			}
 
-			$this->manager->getManagerOf('Image')->addImage($image);
-			$image->save();
+			// IMAGE
+			if (!empty($_FILES['image']))
+			{
+				$image = new Image([
+					'tmpName'	=> $_FILES['image']['tmp_name'],
+					'title'		=> $request->postData('imageTitle'),
+					'extension'	=> $_FILES['image']['type'],
+					'size'		=> $_FILES['image']['size'],
+					'postId'	=> $postId,
+					'url'		=> '/../../Web/uploads/img/' . $request->postData('imageTitle')
+				]);
 
+				if (($errors = $image->getErrors()) != null)
+				{
+					$image->getErrorMessage();
+				}
+				else {
+					$addImage = $this->manager->getManagerOf('Image')->addImage($image);
+					if ($addImage == true)
+					{
+						$image->save();
+					}
+				}
+			}
+			Session::getInstance()->setFlash('success', 'Votre article a bien été ajouté !');
 			$this->app->getHttpResponse()->redirect('/listPosts');
 		}
 
@@ -95,13 +128,22 @@ class PostController extends Controller
 
 		if ($request->postExists('preface'))
 		{
+			// POST
 			$post->setTitle($request->postData('title'));
 			$post->setPreface($request->postData('preface'));
 			$post->setPostContent($request->postData('postContent'));
 			$post->setUpdatedAt(date_format(new \Datetime(), 'Y-m-d H:i:s'));
 
-			$this->manager->getManagerOf('Post')->updatePost($post);
+			if (($errors = $post->getErrors()) != null)
+			{
+				$post->getErrorMessage();
+				return;
+			}
+			else {
+				$this->manager->getManagerOf('Post')->updatePost($post);
+			}
 
+			// CATEGORIES
 			if (!empty($request->postData('categoryName')))
 			{
 				foreach (($request->postData('categoryName')) as $category)
@@ -110,6 +152,7 @@ class PostController extends Controller
 				}
 			}
 
+			// IMAGE
 			if (!empty($_FILES['image']))
 			{
 				$image = new Image([
@@ -121,10 +164,18 @@ class PostController extends Controller
 					'url'		=> '/../../Web/uploads/img/' . $request->postData('imageTitle')
 				]);
 
-				$this->manager->getManagerOf('Image')->addImage($image);
-				$image->save();
+				if (($errors = $image->getErrors()) != null)
+				{
+					$image->getErrorMessage();
+				}
+				else {
+					$addImage = $this->manager->getManagerOf('Image')->addImage($image);
+					if ($addImage == true)
+					{
+						$image->save();
+					}
+				}
 			}
-
 			$this->app->getHttpResponse()->redirect('/post-' . $request->getData('id'));
 		}
 	}
@@ -132,6 +183,7 @@ class PostController extends Controller
 	public function executeDeletePost(HTTPRequest $request)
 	{
 		$this->manager->getManagerOf('Post')->deletePost($request->getData('id'));
+		Session::getInstance()->setFlash('success', 'L\'article a bien été supprimé.');
 		$this->app->getHttpResponse()->redirect('/listPosts');
 	}
 }
