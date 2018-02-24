@@ -5,67 +5,83 @@ use EmmaM\Entity;
 
 class Comment extends Entity
 {
-	protected $id;
-	protected $author;
-	protected $commentContent;
-	protected $commentDate;
-	protected $postId;
-	protected $online = 0;
+    protected $id;
+    protected $author;
+    protected $commentContent;
+    protected $commentDate;
+    protected $postId;
+    protected $online = false;
 
-	// GETTERS & SETTERS
+    const INVALID_CONTENT = 'Le commentaire ne peut être vide, et doit contenir au moins 15 caractères.';
+    const INVALID_POSTID = 'L\'id de l\'article est invalide';
+    const INVALID_ONLINE = 'L\'attribut online n\'a pas pu être modifié.';
 
-	public function getId()
-	{
-		return $this->id;
-	}
+    // GETTERS & SETTERS
 
-	public function getAuthor()
-	{
-		return $this->author;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getCommentContent()
-	{
-		return $this->commentContent;
-	}
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
-	public function getCommentDate()
-	{
-		return $this->commentDate;
-	}
+    public function getCommentContent()
+    {
+        return $this->commentContent;
+    }
 
-	public function getPostId()
-	{
-		return $this->postId;
-	}
+    public function getCommentDate()
+    {
+        return $this->commentDate;
+    }
 
-	public function getOnline()
-	{
-		return $this->online;
-	}
+    public function getPostId()
+    {
+        return $this->postId;
+    }
 
-	public function setAuthor($author)
-	{
-		$this->author = $author;
-	}
+    public function getOnline()
+    {
+        return $this->online;
+    }
 
-	public function setCommentContent($commentContent)
-	{
-		$this->commentContent = $commentContent;
-	}
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
 
-	public function setCommentDate($commentDate)
-	{
-		$this->commentDate = $commentDate;
-	}
+    public function setCommentContent($commentContent)
+    {
+        if (empty($commentContent) || !is_string($commentContent) || strlen($commentContent) < 15) {
+            $this->errors[] = self::INVALID_CONTENT;
+        } else {
+            $this->commentContent = $commentContent;
+        }
+    }
 
-	public function setPostId($postId)
-	{
-		$this->postId = $postId;
-	}
+    public function setCommentDate($commentDate)
+    {
+        $this->commentDate = $commentDate;
+    }
 
-	public function setOnline($online)
-	{
-		$this->online = $online;
-	}
+    public function setPostId($postId)
+    {
+        if (empty($postId)) {
+            $this->errors[] = self::INVALID_POSTID;
+        } else {
+            $this->postId = $postId;
+        }
+    }
+
+    public function setOnline($online)
+    {
+        if (!is_bool($online)) {
+            $this->errors[] = self::INVALID_ONLINE;
+        } else {
+            $this->online = $online;
+        }
+    }
 }

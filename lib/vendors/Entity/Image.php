@@ -13,10 +13,9 @@ class Image extends Entity
 	protected $url;
 	protected $postId;
 
-	const INVALID_NAME = 1;
-	const INVALID_SIZE = 2;
-	const INVALID_EXT = 3;
-	const INVALID_ERROR = 4;
+	const INVALID_TITLE = 'Le titre de l\'image doit être une chaine de caractères de 10 à 100 caractères.';
+    const INVALID_SIZE = 'La taille de l\'image doit être inférieur à 2Mo.';
+    const INVALID_EXT = 'L\'image doit être au format JPG, JPEG, ou PNG.';
 
 	public function save()
 	{
@@ -95,17 +94,29 @@ class Image extends Entity
 
 	public function setTitle($title)
 	{
-		$this->title = $title;
+		if (is_string($title) && !empty($title) && strlen($title) > 10 && strlen($title) < 100) {
+            $this->title = $title;
+        } else {
+            $this->errors[] = self::INVALID_TITLE;
+        }
 	}
 
 	public function setExtension($extension)
 	{
-		$this->extension = $extension;
+		if ($extension == "jpg" || $extension == "png" || $extension == "jpeg") {
+            $this->extension = $extension;  
+        } else {
+            $this->errors[] = self::INVALID_EXT;
+        }
 	}
 
 	public function setSize($size)
 	{
-		$this->size = $size;
+		if (!empty($size) && $size < 2097152) {
+            $this->size = $size;
+        } else {
+            $this->errors[] = self::INVALID_SIZE;
+        }
 	}
 
 	public function setUrl($url)

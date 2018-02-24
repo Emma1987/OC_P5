@@ -7,10 +7,10 @@ use EmmaM\Session;
 
 class ImageController extends Controller
 {
-	public function executeDeleteImage(HTTPRequest $request)
-	{
-		$this->manager->getManagerOf('Image')->deleteImage($request->getData('id'));
-		Session::getInstance()->setFlash('success', 'Cette image a bien été supprimée.');
-		$this->app->getHttpResponse()->redirect('/updatePost-' . $request->getData('postId'));
-	}
+    public function executeDeleteImage(HTTPRequest $request)
+    {
+        $this->manager->getManagerOf('Image')->deleteImage($request->getData('id'));
+        Session::getInstance()->setFlash('success', 'Cette image a bien été supprimée.');
+        $this->app->getHttpResponse()->redirect('/admin/updatePost-' . $request->getData('postId'));
+    }
 }

@@ -1,0 +1,229 @@
+/* LAYOUT */
+p
+{
+	font-size: 15px;
+}
+
+hr
+{
+	margin-top: 15px;
+}
+
+h2, h3
+{
+	text-transform: uppercase;
+}
+
+h2
+{
+	font-size: 20px;
+}
+
+h3
+{
+	font-size: 14px;
+}
+
+a
+{
+	color: black;
+}
+
+a:hover
+{
+	color: #5cb85c;
+}
+
+.navbar-header
+{
+	font-family: 'Satisfy', cursive;
+}
+
+.navbar-brand
+{
+	font-size: 25px;
+}
+
+.content
+{
+	padding-bottom: 100px;
+}
+
+/* LIST POSTS */
+.panel.list-posts
+{
+	width: 90%;
+	margin: 20px auto;
+}
+
+div.listPostsImage
+{
+    max-height: 150px;
+    overflow: hidden;
+}
+
+div.listPostsImage img
+{
+    width: 100%;
+}
+
+/* POST */
+.panel.post-unique
+{
+	padding: 20px; 
+}
+
+.imagePostUnique img
+{
+	max-width: 100%;
+}
+
+.post-buttons a
+{
+	width: 150px;
+	margin: 10px 5px 100px 5px;
+}
+
+.panel-categories
+{
+	padding: 40px;
+}
+
+.panel-categories .btn
+{
+	width: 200px;
+	margin: 5px 0;
+}
+
+/* ADD POST*/
+.formPost .list-group-item
+{
+	margin-bottom: 10px;
+}
+
+.btn.validButton
+{
+	width: 150px;
+	margin: 5px 0 0 0;
+}
+
+.btn.noClic:hover
+{
+	background-color: #fff;
+}
+
+.list-categories
+{
+	width: 200px;
+	margin-bottom: 5px;
+}
+
+.btn.list-categories
+{
+	text-align: left;
+}
+
+input[type=checkbox] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	border-radius: 4px;
+	margin-right: 5px;
+	height: 15px;
+	width: 15px;
+	background: #fff;
+	border: 1px solid #ccc;    
+}
+
+input[type="checkbox"]:checked {
+	background: #ccc;
+ 	margin-right: 5px;
+	position: relative;
+		&:before {
+		font-family: FontAwesome;
+		content: '\f00c';
+		display: block;
+		color: grey;
+		font-size: 13px;
+		position: absolute;
+  }
+}
+
+/* UPDATE POST */
+.updateImage
+{
+	max-width: 350px;
+}
+
+/* LIST CATEGORIES */
+div.textAlignRight
+{
+	text-align: right;
+}
+.form-control.widthControl
+{
+	width: 60%;
+}
+
+/* LIST USERS */
+.listUsers
+{
+	width: 80%;
+	margin: 10px auto 100px;
+}
+
+.listUsers .btn, .listComments .btn, .indexAdmin .btn
+{
+	width: 100%;
+	margin: 0 auto 10px;
+}
+
+/* MEDIA QUERIES
+================================== */
+@media screen and (max-width: 768px)
+{
+	div#wrapper
+	{
+		padding-top: 80px;
+	}
+
+	h1
+	{
+		text-align: center;
+	}
+
+	h2, h3
+	{
+		font-size: 18px;
+	}
+
+	div.textAlign, div.textAlignRight
+	{
+		text-align: center;
+	}
+
+	input.form-control.widthControl
+	{
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 1112px)
+{
+	.listUsers
+	{
+		width: 100%;
+	}
+
+	div .addPadding
+	{
+		padding-right: 5px;
+		padding-left: 5px;
+	}
+
+	.list-categories
+	{
+		width: 110px;
+		margin-bottom: 5px;
+	}
+}

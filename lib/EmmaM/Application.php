@@ -1,72 +1,70 @@
 <?php
 namespace EmmaM;
 
+use Entity\User;
+use EmmaM\Session;
+
 class Application
 {
-	protected $httpRequest;
-	protected $httpResponse;
+    protected $httpRequest;
+    protected $httpResponse;
 
-	public function __construct()
-	{
-		$this->httpRequest = new HttpRequest();
-		$this->httpResponse = new HttpResponse();
-	}
+    public function __construct()
+    {
+        $this->httpRequest = new HttpRequest();
+        $this->httpResponse = new HttpResponse();
+    }
 
-	public function getController()
-	{
-		$router = new Router();
+    public function getController()
+    {
+        $router = new Router();
 
-		$xml = new \DOMDocument();
-		$xml->load(__DIR__ . '/../../App/Config/routes.xml');
+        $xml = new \DOMDocument();
+        $xml->load(__DIR__ . '/../../App/Config/routes.xml');
 
-		$routes = $xml->getElementsByTagName('route');
+        $routes = $xml->getElementsByTagName('route');
 
-		foreach ($routes as $route)
-		{
-			$vars = [];
-			if ($route->hasAttribute('vars'))
-			{
-				$vars = explode(',', $route->getAttribute('vars'));
-			}
+        foreach ($routes as $route) {
+            $vars = [];
+            if ($route->hasAttribute('vars')) {
+                $vars = explode(',', $route->getAttribute('vars'));
+            }
 
-			$router->addRoute(new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $vars));
-		}
+            $router->addRoute(new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $route->getAttribute('layout'), $vars));
+        }
 
-		try
-		{
-			$matchedRoute = $router->getRoute($this->httpRequest->getRequestURI());
-		}
-		catch (\RuntimeException $e) {
-			if ($e->getCode() == Router::NO_ROUTE)
-			{
-				$this->httpResponse->redirect404();
-			}
-		}
+        try {
+            $matchedRoute = $router->getRoute($this->httpRequest->getRequestURI());
+        } catch (\RuntimeException $e) {
+            if ($e->getCode() == Router::NO_ROUTE) {
+                $this->httpResponse->redirect404();
+            }
+        }
 
-		$_GET = array_merge($_GET, $matchedRoute->getVars());
+        $_GET = array_merge($_GET, $matchedRoute->getVars());
 
-		$controllerClass = 'App\\Modules\\'.$matchedRoute->getModule().'\\'.$matchedRoute->getModule().'Controller';
-		return new $controllerClass($this, $matchedRoute->getModule(), $matchedRoute->getAction());
-	}
+        $controllerClass = 'App\\Modules\\'.$matchedRoute->getModule().'\\'.$matchedRoute->getModule().'Controller';
+        return new $controllerClass($this, $matchedRoute->getModule(), $matchedRoute->getAction(), $matchedRoute->getLayout());
+    }
 
-	public function run()
-	{
-		$controller = $this->getController();
-		$controller->execute();
+    public function run()
+    {
+        $controller = $this->getController();
+        $controller->execute();
 
-		$this->httpResponse->setPage($controller->getPage());
-		$this->httpResponse->send();
-	}
+        $this->httpResponse->setPage($controller->getPage());
+        $this->httpResponse->send();
+    }
 
-	// GETTERS & SETTERS
+    // GETTERS & SETTERS
 
-	public function getHttpRequest()
-	{
-		return $this->httpRequest;
-	}
+    public function getHttpRequest()
+    {
+        return $this->httpRequest;
+    }
 
-	public function getHttpResponse()
-	{
-		return $this->httpResponse;
-	}
+    public function getHttpResponse()
+    {
+        return $this->httpResponse;
+    }
 }

@@ -4,11 +4,16 @@ namespace App\Modules\Category;
 use EmmaM\Controller;
 use EmmaM\HTTPRequest;
 use Entity\Category;
+use EmmaM\Session;
 
 class CategoryController extends Controller
 {
     public function executeListCategories()
     {
+        $this->adminLayout();
+
+        $this->page->addVar('title', 'Liste des catégories');
+
         $listCategories = $this->manager->getManagerOf('Category')->getAllCategories();
 
         $this->page->addVar('categories', $listCategories);
@@ -23,13 +28,13 @@ class CategoryController extends Controller
     public function executeAddCategoryNewPost(HTTPRequest $request)
     {
         $this->addCategory($request);
-        $this->app->getHttpResponse()->redirect('/addPost');
+        $this->app->getHttpResponse()->redirect('/admin/addPost');
     }
 
     public function executeAddCategoryUpdate(HTTPRequest $request)
     {
         $this->addCategory($request);
-        $this->app->getHttpResponse()->redirect('/updatePost-' . $request->postData('postId'));
+        $this->app->getHttpResponse()->redirect('/admin/updatePost-' . $request->postData('postId'));
 
     }
 
@@ -37,21 +42,21 @@ class CategoryController extends Controller
     {
         $this->manager->getManagerOf('Category')->removeCategory($request->getData('id'));
         Session::getInstance()->setFlash('success', 'La catégorie a bien été supprimée.');
-        $this->app->getHttpResponse()->redirect('/addPost');
+        $this->app->getHttpResponse()->redirect('/admin/addPost');
     }
 
     public function executeRemoveCategory(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Category')->removeCategory($request->getData('id'));
         Session::getInstance()->setFlash('success', 'La catégorie a bien été supprimée.');
-        $this->app->getHttpResponse()->redirect('/listCategories');
+        $this->app->getHttpResponse()->redirect('/admin/listCategories');
     }
 
     public function executeRemovePostCategory(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Category')->removePostCategory($request->getData('postId'), $request->getData('categoryId'));
         Session::getInstance()->setFlash('success', 'La catégorie a bien été supprimée de cet article.');
-        $this->app->getHttpResponse()->redirect('/updatePost-' . $request->getData('postId'));
+        $this->app->getHttpResponse()->redirect('/admin/updatePost-' . $request->getData('postId'));
     }
 
     private function addCategory(HTTPRequest $request)

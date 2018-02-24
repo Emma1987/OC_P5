@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-    <route url="/" module="Post" action="index" ></route>
-    <route url="/listPosts" module="Post" action="listPosts" ></route>
-    <route url="/post-([0-9]+)" module="Post" action="post" vars="id" ></route>
-    <route url="/addPost" module="Post" action="insertPost" ></route>
-    <route url="/updatePost-([0-9]+)" module="Post" action="updatePost" vars="id" ></route>
-    <route url="/deletePost-([0-9]+)" module="Post" action="deletePost" vars="id" ></route>
-    <route url="/addComment-([0-9]+)" module="Comment" action="insertComment" vars="id" ></route>
-    <route url="/listComments" module="Comment" action="listComments" ></route>
-    <route url="/validateComment-([0-9]+)" module="Comment" action="validateComment" vars="id" ></route>
-    <route url="/deleteComment-([0-9]+)" module="Comment" action="deleteComment" vars="id" ></route>
-    <route url="/listCategories" module="Category" action="listCategories" ></route>
-    <route url="/addCategory" module="Category" action="addCategory" ></route>
-    <route url="/addCategoryNewPost" module="Category" action="addCategoryNewPost" ></route>
-    <route url="/addCategoryUpdate" module="Category" action="addCategoryUpdate" ></route>
-    <route url="/removeCategory-([0-9]+)" module="Category" action="removeCategory" vars="id" ></route>
-    <route url="/removeCategoryNewPost-([0-9]+)" module="Category" action="removeCategoryNewPost" vars="id" ></route>
-    <route url="/removePostCategory-([0-9]+)-([0-9]+)" module="Category" action="removePostCategory" vars="postId,categoryId" ></route>
-    <route url="/deleteImage-([0-9]+)-([0-9]+)" module="Image" action="deleteImage" vars="id,postId" ></route>
-    <route url="/register" module="User" action="register" ></route>
-    <route url="/login" module="User" action="login" ></route>
+    <!-- FRONT -->
+    <route url="/" module="Post" action="index" layout="front" ></route>
+    <route url="/listPosts" module="Post" action="listPostsFront" layout="front" ></route>
+    <route url="/post-([0-9]+)" module="Post" action="post" layout="front" vars="id" ></route>
+    <route url="/addComment-([0-9]+)" module="Comment" action="insertComment" layout="front" vars="id" ></route>
+    <route url="/register" module="User" action="register" layout="front" ></route>
+    <route url="/login" module="User" action="login" layout="front" ></route>
     <route url="/logout" module="User" action="logout" ></route>
-    <route url="/listUsers" module="Admin" action="listUsers" ></route>
-    <route url="/deleteUser-([0-9]+)" module="User" action="deleteUser" vars="id" ></route>
+
+    <!-- ADMIN -->
+    <route url="/admin/" module="Admin" action="indexAdmin" layout="admin" ></route>
+    <route url="/admin/listPosts" module="Admin" action="listPostsAdmin" layout="admin" ></route>
+    <route url="/admin/post-([0-9]+)" module="Admin" action="postAdmin" layout="admin" vars="id" ></route>
+    <route url="/admin/addPost" module="Post" action="insertPost" layout="admin" ></route>
+    <route url="/admin/updatePost-([0-9]+)" module="Post" action="updatePost" layout="admin" vars="id" ></route>
+    <route url="/admin/deletePost-([0-9]+)" module="Post" action="deletePost" vars="id" ></route>
+    <route url="/admin/listComments" module="Comment" action="listComments" layout="admin" ></route>
+    <route url="/admin/validateComment-([0-9]+)" module="Comment" action="validateComment" vars="id" ></route>
+    <route url="/admin/deleteComment-([0-9]+)" module="Comment" action="deleteComment" vars="id" ></route>
+    <route url="/admin/listCategories" module="Category" action="listCategories" layout="admin" ></route>
+    <route url="/admin/addCategory" module="Category" action="addCategory" ></route>
+    <route url="/admin/addCategoryNewPost" module="Category" action="addCategoryNewPost" layout="admin" ></route>
+    <route url="/admin/addCategoryUpdate" module="Category" action="addCategoryUpdate" ></route>
+    <route url="/admin/removeCategoryNewPost-([0-9]+)" module="Category" action="removeCategoryNewPost" vars="id" ></route>
+    <route url="/admin/removeCategory-([0-9]+)" module="Category" action="removeCategory" vars="id" ></route>
+    <route url="/admin/removePostCategory-([0-9]+)-([0-9]+)" module="Category" action="removePostCategory" vars="postId,categoryId" ></route>
+    <route url="/admin/deleteImage-([0-9]+)-([0-9]+)" module="Image" action="deleteImage" vars="id,postId" ></route>
+    <route url="/admin/listUsers" module="User" action="listUsers" layout="admin" ></route>
+    <route url="/admin/setRole-([0-9]+)-([0-9]+)" module="User" action="setRole" vars="userId,userRole" ></route>
+    <route url="/admin/deleteUser-([0-9]+)" module="User" action="deleteUser" vars="id" ></route>
 </routes>
