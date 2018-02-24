@@ -15,6 +15,12 @@
     <route url="/addCategoryNewPost" module="Category" action="addCategoryNewPost" ></route>
     <route url="/addCategoryUpdate" module="Category" action="addCategoryUpdate" ></route>
     <route url="/removeCategory-([0-9]+)" module="Category" action="removeCategory" vars="id" ></route>
+    <route url="/removeCategoryNewPost-([0-9]+)" module="Category" action="removeCategoryNewPost" vars="id" ></route>
     <route url="/removePostCategory-([0-9]+)-([0-9]+)" module="Category" action="removePostCategory" vars="postId,categoryId" ></route>
     <route url="/deleteImage-([0-9]+)-([0-9]+)" module="Image" action="deleteImage" vars="id,postId" ></route>
+    <route url="/register" module="User" action="register" ></route>
+    <route url="/login" module="User" action="login" ></route>
+    <route url="/logout" module="User" action="logout" ></route>
+    <route url="/listUsers" module="Admin" action="listUsers" ></route>
+    <route url="/deleteUser-([0-9]+)" module="User" action="deleteUser" vars="id" ></route>
 </routes>

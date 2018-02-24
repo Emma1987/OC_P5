@@ -39,21 +39,56 @@
         <!-- NAVIGATION
         ============================================================ -->
         <header>
-            <div class="row header-nav">
-                <div class="col-sm-3 header-content" id="page-top">Emmanuelle MERCADAL</div>
-                <div class="col-sm-9 header-content">
-                    <ul>
-                        <li><a href="/">Accueil</a></li>
-                        <li><a href="listPosts">Liste des posts</a></li>
-                        <li><a href="addPost">Ajouter un post</a></li>
-                        <li><a href="listComments">Liste des commentaires</a></li>
+        <div class="nav"> <!-- Navigation -->
+            <div class="row">
+                <div class="col-sm-4 col-xs-12 name">Emmanuelle Mercadal</div>
+                <div class="col-sm-8 col-xs-12">
+                    <ul class="pull-right">
+                        <li><a href="/">ACCUEIL</a></li>
+                        <li><a href="listPosts">ARTICLES</a></li>
+                        <li><a href="#">CONTACT</a></li>
+                        <li class="dropdown drop-menu">
+                            <?php
+                            if (!empty($_SESSION['auth']))
+                            {
+                            ?>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user fa-fw"></i> <?= $_SESSION['auth']->getUsername() ?> <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                    <li><a href="/admin/">Administration</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Se déconnecter</a></li>
+                                </ul>
+                            <?php
+                            } else {
+                                ?>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-gear fa-fw"></i> Connexion <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                <li><a href="login"><i class="fa fa-sign-out fa-fw"></i> Se connecter</a></li>
+                            </ul>
+                            <?php
+                            }
+                            ?>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
         <!-- CONTENT
         ============================================================ -->
+        <?php if ($session->hasFlashes()): ?>
+            <?php foreach ($session->getFlash() as $key => $value): ?>
+                <div class="alert alert-<?= $key; ?>">
+                    <?= $value; ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
         <?= $content ?>
 
 
