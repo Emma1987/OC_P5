@@ -49,11 +49,96 @@ class UserController extends Controller
                 if (($errors = $user->getErrors()) != null) {
                     $user->getErrorMessage();
                 } else {
-                    $userId = $this->manager->getManagerOf('User')->addUser($user);
+                    $user->createToken();
+                    $user->setResetAt(date_format(new \Datetime(), 'Y-m-d H:i:s'));
+                    $this->manager->getManagerOf('User')->addUser($user);
+
+                    $path = $this->app->getConfig()->getVarValue('path');
+                    $validateLink = $path .$this->manager->getManagerOf('User')->lastInsertId(). '-' .$user->getToken();
+                    $sendFrom = $this->app->getConfig()->getVarValue('mailAdmin');
+                    $user->confirmAccount($sendFrom, $validateLink, $user->getEmail());
+
                     Session::getInstance()->setFlash('success', 'Un email vous a été envoyé pour confirmer votre inscription.');
                 }
             } else {
                 Session::getInstance()->setFlash('danger', $errorMessage);
+            }
+        }
+    }
+
+    public function executeConfirmRegister(HTTPRequest $request)
+    {
+        $user = $this->manager->getManagerOf('User')->getUserById($request->getData('id'));
+        $tokenOutdated = date_add(date_create($user->getResetAt()), new \DateInterval('PT1800S'));
+
+        // Token invalid
+        if ($user->getToken() != $request->getData('token') || (new \Datetime() > $tokenOutdated)) {
+            Session::getInstance()->setFlash('danger', 'Ce mail de confirmation n\'est plus valide.');
+            $this->app->getHttpResponse()->redirect('/register');
+        } else {    // Token valid : confirm account 
+            $user->setRole('1');
+            $user->setToken(null);
+            $this->manager->getManagerOf('User')->confirmAccount($user);
+
+            Session::getInstance()->setFlash('success', 'Votre inscription à bien été validée.');
+            $this->app->getHttpResponse()->redirect('/login');
+        }
+    }
+
+    public function executeResetPass(HTTPRequest $request)
+    {
+        $this->page->addVar('title', 'Réinitialisation mot de passe');
+        $this->page->addVar('contentClass', 'content');
+
+        if ($request->postExists('email')) {
+            $user = $this->manager->getManagerOf('User')->getUserByEmail($request->postData('email'));
+            if (empty($user) || ($user->getRole() == 0)) {
+                Session::getInstance()->setFlash('danger', 'Aucun compte n\'est associé à cet email.');
+            } else {
+                $user->createToken();
+                $user->setResetAt(date_format(new \Datetime(), 'Y-m-d H:i:s'));
+                $this->manager->getManagerOf('User')->updateToken($user->getToken(), $user->getId(), $user->getResetAt());
+
+                $path = $this->app->getConfig()->getVarValue('path');
+                $validateLink = $path .$user->getId(). '-' .$user->getToken();
+                $sendFrom = $this->app->getConfig()->getVarValue('mailAdmin');
+                $user->resetPassword($sendFrom, $validateLink, $user->getEmail());
+
+                Session::getInstance()->setFlash('success', 'Un email contenant les instructions vous a été envoyé.');
+            }
+        }
+    }
+
+    public function executeConfirmReset(HTTPRequest $request)
+    {
+        $this->page->addVar('title', 'Réinitialisation mot de passe');
+        $this->page->addVar('contentClass', 'content');
+
+        $user = $this->manager->getManagerOf('User')->getUserById($request->getData('id'));
+        $tokenOutdated = date_add(date_create($user->getResetAt()), new \DateInterval('PT1800S'));
+
+        if ($user->getToken() != $request->getData('resetToken') || (new \Datetime() > $tokenOutdated)) {
+            Session::getInstance()->setFlash('danger', 'Ce mail de confirmation n\'est plus valide.');
+            $this->app->getHttpResponse()->redirect('/login');
+        } else {
+            Session::getInstance()->setFlash(
+                'success', 
+                'Vous pouvez réinitialiser le mot de passe.'
+            );
+        }
+        
+        // Token valid : confirm account
+        if ($request->postExists('password')) {
+            // Identiques passwords
+            if ($request->postData('password') != $request->postData('confirmPwd')) {
+                Session::getInstance()->setFlash('danger', 'Les deux mots de passe saisis ne sont pas identiques.');
+            } else {
+                $user->setToken(null);
+                $user->setPassword(password_hash($request->postData('password'), PASSWORD_BCRYPT));
+                $this->manager->getManagerOf('User')->updatePassword($user);
+
+                Session::getInstance()->setFlash('success', 'Votre mot de passe a bien été changé !');
+                $this->app->getHttpResponse()->redirect('/login');
             }
         }
     }
@@ -105,4 +190,3 @@ class UserController extends Controller
         $this->app->getHttpResponse()->redirect('/admin/listUsers');
     }
 }
-

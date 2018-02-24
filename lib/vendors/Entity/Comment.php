@@ -2,9 +2,12 @@
 namespace Entity;
 
 use EmmaM\Entity;
+use EmmaM\Mailer;
 
 class Comment extends Entity
 {
+    use Mailer;
+
     protected $id;
     protected $author;
     protected $commentContent;
@@ -15,6 +18,14 @@ class Comment extends Entity
     const INVALID_CONTENT = 'Le commentaire ne peut être vide, et doit contenir au moins 15 caractères.';
     const INVALID_POSTID = 'L\'id de l\'article est invalide';
     const INVALID_ONLINE = 'L\'attribut online n\'a pas pu être modifié.';
+
+    public function mailNewComment($sendTo)
+    {
+        $subject = 'Nouveau commentaire sur votre site !';
+        $body = 'Un nouveau commentaire a été posté sur votre site. Vous pouvez dès à présent le valider !';
+
+        $this->sendMail($sendTo, 'Administrateur', $subject, $body, $sendTo, $sendTo);
+    }
 
     // GETTERS & SETTERS
 

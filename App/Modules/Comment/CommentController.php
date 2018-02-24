@@ -38,7 +38,11 @@ class CommentController extends Controller
                 $comment->getErrorMessage();
             } else {
                 $this->manager->getManagerOf('Comment')->addComment($comment);
-                Session::getInstance()->setFlash('success', 'Votre commentaire a bien été ajouté. Il sera visible dès qu\'un administrateur l\'aura validé.');
+                Session::getInstance()->setFlash(
+                    'success', 
+                    'Votre commentaire a bien été ajouté. Il sera visible dès qu\'un administrateur l\'aura validé.'
+                );
+                $comment->mailNewComment($comment->mailNewComment($this->app->getConfig()->getVarValue('mailAdmin')););
             }
         }
         $this->app->getHttpResponse()->redirect('post-' . $request->getData('id'));

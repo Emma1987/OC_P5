@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions>
+	<!-- Define the domain name -->
+	<define var="path" value="" />
+	<!-- Defines the address used for sending mails -->
+	<define var="mailAdmin" value="" />
+	<!-- Set the login credentials for the email used for sending emails -->
+	<define var="mailUsername" value="" />
+	<define var="mailPassword" value="" />
+</definitions>

@@ -8,11 +8,13 @@ class Application
 {
     protected $httpRequest;
     protected $httpResponse;
+    protected $config;
 
     public function __construct()
     {
         $this->httpRequest = new HttpRequest();
         $this->httpResponse = new HttpResponse();
+        $this->config = new Config();
     }
 
     public function getController()
