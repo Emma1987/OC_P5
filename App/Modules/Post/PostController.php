@@ -45,10 +45,13 @@ class PostController extends Controller
 		$categories = $this->manager->getManagerOf('Category')->getAllCategories();
 		$this->page->addVar('categories', $categories);
 
-		if ($request->postExists('author'))
+		$user = $this->manager->getManagerOf('User')->getUserById($_SESSION['auth']->getId());
+		$this->page->addVar('user', $user);
+
+		if ($request->postExists('authorValue'))
 		{
 			$post = new Post([
-			 	'author'	=> $request->postData('author'),
+			 	'author'	=> $request->postData('authorValue'),
 			 	'title'		=> $request->postData('title'),
 			 	'preface'	=> $request->postData('preface'),
 			 	'postContent' => $request->postData('postContent'),

@@ -19,7 +19,7 @@ class CommentController extends Controller
 	public function executeInsertComment(HTTPRequest $request)
 	{
 		$comment = new Comment([
-			'author'		=> $request->postData('author'),
+			'author'		=> $request->postData('authorValue'),
 			'commentContent' => $request->postData('commentContent'),
 			'commentDate' 	=> (date_format(new \Datetime(), 'Y-m-d H:i:s')),
 			'postId'		=> $request->getData('id')

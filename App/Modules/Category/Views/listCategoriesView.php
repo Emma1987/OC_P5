@@ -27,7 +27,7 @@
     ?>
 
     <p>Ajoutez une nouvelle catégorie :</p>
-    <form method="post" action="addCategory">                  <!-- ACTION A DEFINIR -->
+    <form method="post" action="addCategory">
         <input type="text" name="newCategory" />
         <input type="submit" value="Valider" />
     </form>

@@ -17,7 +17,8 @@
 						<div class="list-group-item">
 							<div class="form-group">
 								<label for="author">Auteur</label>
-								<input class="form-control" type="text" id="author" name="author" placeholder="Auteur" />
+								<input class="form-control" type="text" id="author" name="author" value="<?= $user->getUsername(); ?>" disabled="disabled" />
+								<input type="hidden" name="authorValue" value="<?= $user->getUsername(); ?>" />
 							</div>
 							<div class="form-group">
 								<label for="title">Titre</label>
