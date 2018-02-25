@@ -18,7 +18,7 @@ class PostController extends Controller
         $images = $this->manager->getManagerOf('Image')->getAllImages();
 
         foreach ($images as $image) {
-            $postImage[$image->getPostId()] = $image->getTitle();
+            $postImage[$image->getPostId()] = $image->getTitle() . $image->getPostId() . '.' . $image->getExtension();
         }
 
         $this->page->addVar('posts', $posts);
@@ -90,17 +90,14 @@ class PostController extends Controller
                     'extension' => substr(strrchr($_FILES['image']['type'], "/"), 1),
                     'size'      => $_FILES['image']['size'],
                     'postId'    => $this->manager->getManagerOf('Post')->lastInsertId(),
-                    'url'       => '/../../../Web/uploads/img/' . $request->postData('imageTitle')
                 ]);
 
                 if (($errors = $image->getErrors()) != null) {
                     $image->getErrorMessage();
+                    return;
                 } else {
-                    $addImage = $this->manager->getManagerOf('Image')->addImage($image);
-                    if ($addImage == true)
-                    {
-                        $image->save();
-                    }
+                    $image->saveAndResize();
+                    $this->manager->getManagerOf('Image')->addImage($image);
                 }
             }
             Session::getInstance()->setFlash('success', 'Votre article a bien été ajouté !');
@@ -160,17 +157,14 @@ class PostController extends Controller
                     'extension' => substr(strrchr($_FILES['image']['type'], "/"), 1),
                     'size'      => $_FILES['image']['size'],
                     'postId'    => $post->getId(),
-                    'url'       => '/../../../Web/uploads/img/' . $request->postData('imageTitle')
                 ]);
 
                 if (($errors = $image->getErrors()) != null) {
                     $image->getErrorMessage();
+                    return;
                 } else {
-                    $addImage = $this->manager->getManagerOf('Image')->addImage($image);
-                    if ($addImage == true)
-                    {
-                        $image->save();
-                    }
+                    $image->saveAndResize();
+                    $this->manager->getManagerOf('Image')->addImage($image);
                 }
             }
             $this->app->getHttpResponse()->redirect('/post-' . $request->getData('id'));

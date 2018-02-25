@@ -10,7 +10,6 @@ class Session
         if (self::$instance === null) {
             self::$instance = new Session();
         }
-
         return self::$instance;
     }
 

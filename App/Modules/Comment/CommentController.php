@@ -42,7 +42,7 @@ class CommentController extends Controller
                     'success', 
                     'Votre commentaire a bien été ajouté. Il sera visible dès qu\'un administrateur l\'aura validé.'
                 );
-                $comment->mailNewComment($comment->mailNewComment($this->app->getConfig()->getVarValue('mailAdmin')););
+                $comment->mailNewComment($this->app->getConfig()->getVarValue('mailAdmin'));
             }
         }
         $this->app->getHttpResponse()->redirect('post-' . $request->getData('id'));

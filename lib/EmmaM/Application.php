@@ -69,4 +69,9 @@ class Application
     {
         return $this->httpResponse;
     }
+
+    public function getConfig()
+    {
+        return $this->config;
+    }
 }

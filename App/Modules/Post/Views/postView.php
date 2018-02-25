@@ -36,7 +36,7 @@
     <!-- IMAGE -->
     <?php if (!empty($image)) : ?>
         <div class="imagePostUnique text-center">
-            <img src="<?= '/Web/uploads/img/' . $image->getTitle() ?>" alt="<?= $image->getTitle(); ?>" />
+            <img src="<?= '/Web/uploads/img/' . $image->getTitle() . $image->getPostId() . '.' . $image->getExtension() ?>" alt="<?= $image->getTitle(); ?>" />
         </div>
     <?php endif; ?>
 </div>

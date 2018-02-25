@@ -123,7 +123,7 @@
                 <div class="col-sm-4">Tous droits réservés &copy; 2018 - Emmanuelle Mercadal</div>
                 <div class="col-lg-8" style="text-align:right;">
                     <a href="mentions-legales">Mentions légales</a>
-                    <a href="/admin/">Administration</a>
+                    <a href="admin/">Administration</a>
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
     <script src="Web/style/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="Web/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="Web/style/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>

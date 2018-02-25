@@ -36,7 +36,7 @@ trait Mailer
             $mail->send();
 
         } catch (Exception $e) {
-            Session::getInstance()->setFlash
+            Session::getInstance()->setFlash('danger', 'Le mail n\'a pas pu être envoyé. Veuillez réessayer ultérieurement');
         }
     }
 }

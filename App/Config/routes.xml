@@ -12,6 +12,7 @@
     <route url="/confirmReset-([0-9]+)-([a-zA-Z0-9]+)" module="User" action="confirmReset" layout="front" vars="id,resetToken" ></route>
     <route url="/logout" module="User" action="logout" ></route>
     <route url="/contact" module="Contact" action="contactPage" layout="front" ></route>
+    <route url="/mentions-legales" module="Contact" action="mentionsLegales" layout="front" ></route>
 
     <!-- ADMIN -->
     <route url="/admin/" module="Admin" action="indexAdmin" layout="admin" ></route>

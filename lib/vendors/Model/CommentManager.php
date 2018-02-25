@@ -61,10 +61,8 @@ class CommentManager extends Manager
     public function validateComment(Comment $comment)
     {
         $requete = $this->getDb()->prepare('UPDATE Comment SET online = :online WHERE id = :id');
-
         $requete->bindValue(':id', $comment->getId(), \PDO::PARAM_INT);
         $requete->bindValue(':online', $comment->getOnline());
-
         $requete->execute();
     }
 
@@ -72,7 +70,6 @@ class CommentManager extends Manager
     {
         $requete = $this->getDb()->prepare('DELETE FROM Comment WHERE id = :id');
         $requete->bindValue(':id', $comment->getId(), \PDO::PARAM_INT);
-
         $requete->execute();
     }
 }

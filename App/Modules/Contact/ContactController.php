@@ -8,6 +8,12 @@ use EmmaM\Session;
 
 class ContactController extends Controller
 {
+    public function executeContactPage()
+    {
+        $this->page->addVar('contentClass', 'contactContent');
+        $this->page->addVar('title', 'Contact');
+    }
+
     public function executeContactMessage(HTTPRequest $request)
     {
         if (!empty($request->postData('firstname'))) {
@@ -35,5 +41,11 @@ class ContactController extends Controller
             );
             $this->app->getHttpResponse()->redirect('/');
         }
+    }
+
+    public function executeMentionsLegales()
+    {
+        $this->page->addVar('contentClass', 'content');
+        $this->page->addVar('title', 'Mentions légales');
     }
 }

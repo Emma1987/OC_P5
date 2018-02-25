@@ -25,15 +25,14 @@ class ImageManager extends Manager
     public function addImage(Image $image)
     {
         $requete = $this->getDb()->prepare(
-            'INSERT INTO Image (tmpName, title, extension, size, url, postId) 
-            VALUES (:tmpName, :title, :extension, :size, :url, :postId)'
+            'INSERT INTO Image (tmpName, title, extension, size, postId) 
+            VALUES (:tmpName, :title, :extension, :size, :postId)'
         );
 
         $requete->bindValue(':tmpName', $image->getTmpName());
         $requete->bindValue(':title', $image->getTitle());
         $requete->bindValue(':extension', $image->getExtension(), \PDO::PARAM_STR);
         $requete->bindValue(':size', $image->getSize());
-        $requete->bindValue(':url', $image->getUrl(), \PDO::PARAM_STR);        
         $requete->bindValue(':postId', $image->getPostId());
 
         $requete->execute();
