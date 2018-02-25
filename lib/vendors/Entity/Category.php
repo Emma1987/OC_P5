@@ -5,29 +5,29 @@ use EmmaM\Entity;
 
 class Category extends Entity
 {
-	protected $id;
-	protected $name;
+    protected $id;
+    protected $name;
 
-	// GETTERS & SETTERS
+    const INVALID_NAME = 'Le nom de la catégorie doit être une chaine de caractères de 2 à 20 caractères.';
 
-	public function getId()
-	{
-		return $this->id;
-	}
+    // GETTERS & SETTERS
 
-	public function getName()
-	{
-		return $this->name;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function setName($name)
-	{
-		if (is_string($name) && !empty($name))
-		{
-			$this->name = $name;
-		}
-		else {
-			throw new \InvalidArgumentException('Le nom de la catégorie doit être une chaine de caractères non nulle.');
-		}
-	}
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        if (is_string($name) && !empty($name) && strlen($name) > 2 && strlen($name) < 20) {
+            $this->name = $name;
+        } else {
+            $this->errors[] = self::INVALID_NAME;
+        }
+    }
 }

@@ -1,33 +1,27 @@
-<?php $title = 'Liste des catégories'; ?>
+<div class="row">
+    <div class="col-md-5 col-xs-12 textAlignRight">
+        <h3>Catégories enregistrées :</h3>
+        <?php if (empty($categories)) : ?>
+            <p>Aucune catégorie</p>
+        <?php else: ?>
+            <?php foreach ($categories as $category) : ?>
+                <div class="btn-group" role="group">
+                    <div class="btn btn-default list-categories noClic">
+                        <i class="glyphicon glyphicon-tag"></i> <?= htmlspecialchars($category->getName()); ?>
+                    </div>
+                    <a class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Supprimer cette catégorie" href="removeCategory-<?= $category->getId(); ?>" >
+                        <i class="fa fa-close fa-fw"></i>
+                    </a>
+                </div><br />
+            <?php endforeach; ?>
+        <?php endif; ?> 
+    </div>
 
-    <h1>Liste des catégories</h1>
-
-    <?php
-    if (empty($categories))
-    {
-        echo 'Aucune catégorie';
-    }
-    else {
-        foreach ($categories as $category)
-        {
-        ?>
-        <div class="btn-group" role="group" aria-label="...">
-            <div class="btn btn-default">
-                <i class="glyphicon glyphicon-tag"></i>
-                <?= htmlspecialchars($category->getName()); ?>
-            </div>
-            <div class="btn btn-default">
-                <a href="removeCategory-<?= $category->getId(); ?>" >X</a><br />
-            </div> 
-        </div>
-        <br />         
-        <?php
-        }
-    }
-    ?>
-
-    <p>Ajoutez une nouvelle catégorie :</p>
-    <form method="post" action="addCategory">
-        <input type="text" name="newCategory" />
-        <input type="submit" value="Valider" />
-    </form>
+    <div class="col-md-offset-2 col-md-5 col-xs-12 textAlign">
+        <h3>Nouvelle catégorie :</h3>
+        <form method="post" action="addCategory">
+            <input class="form-control widthControl" type="text" name="newCategory" />
+            <input class="btn btn-success validButton" type="submit" value="Valider" />
+        </form> 
+    </div>
+</div>

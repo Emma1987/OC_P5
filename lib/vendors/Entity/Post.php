@@ -5,118 +5,124 @@ use EmmaM\Entity;
 
 class Post extends Entity
 {
-	protected $id;
-	protected $author;	
-	protected $title;
-	protected $preface;
-	protected $postContent;
-	protected $publishedAt;
-	protected $updatedAt;
+    protected $id;
+    protected $author;  
+    protected $title;
+    protected $preface;
+    protected $postContent;
+    protected $link;
+    protected $publishedAt;
+    protected $updatedAt;
 
-	const INVALID_AUTHOR = 1;
-	const INVALID_TITLE = 2;
-	const INVALID_PREFACE = 3;
-	const INVALID_CONTENT = 4;	
+    const INVALID_AUTHOR = 'Le nom de l\'auteur doit être composé de 3 à 20 caractères alphanumériques.';
+    const INVALID_TITLE = 'Le titre de votre article doit être une chaine de caractères de 15 à 255 caractères.';
+    const INVALID_PREFACE = 'La présentation de votre article doit être une chaine de caractères de 15 à 255 caractères.';
+    const INVALID_CONTENT = 'Le contenu de votre article doit faire au minimum 15 caractères.';
+    const INVALID_LINK = 'Le lien entré semble ne pas être une URL correcte.';
 
-	public function getLastDate()
-	{
-		if (!empty($this->updatedAt))
-		{
-			return $this->getUpdatedAt();
-		}
-		else {
-			return $this->getPublishedAt();
-		}
-	}
+    public function getLastDate()
+    {
+        if (!empty($this->updatedAt)) {
+            return $this->getUpdatedAt();
+        } else {
+            return $this->getPublishedAt();
+        }
+    }
 
-	//GETTERS & SETTERS
+    //GETTERS & SETTERS
 
-	public function getId()
-	{
-		return $this->id;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getTitle()
-	{
-		return $this->title;
-	}
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	public function getPreface()
-	{
-		return $this->preface;
-	}
+    public function getPreface()
+    {
+        return $this->preface;
+    }
 
-	public function getPostContent()
-	{
-		return $this->postContent;
-	}
+    public function getPostContent()
+    {
+        return $this->postContent;
+    }
 
-	public function getAuthor()
-	{
-		return $this->author;
-	}
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
-	public function getPublishedAt()
-	{
-		return $this->publishedAt;
-	}
+    public function getLink()
+    {
+        return $this->link;
+    }
 
-	public function getUpdatedAt()
-	{
-		return $this->updatedAt;
-	}
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
 
-	public function setAuthor($author)
-	{
-		if (is_string($author) && !empty($author))
-		{
-			$this->author = $author;
-		}
-		else {
-			$this->errors[] = self::INVALID_AUTHOR;
-		}
-	}
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 
-	public function setTitle($title)
-	{
-		if (is_string($title) && !empty($title))
-		{
-			$this->title = $title;
-		}
-		else {
-			$this->errors[] = self::INVALID_TITLE;
-		}	
-	}
+    public function setAuthor($author)
+    {
+        if (!is_string($author) || !preg_match('#^[a-zA-Z0-9].{3,20}$#', $author)) {
+            $this->errors[] = self::INVALID_AUTHOR;
+        } else {
+            $this->author = $author;
+        }
+    }
 
-	public function setPreface($preface)
-	{
-		if (is_string($preface) && !empty($preface))
-		{
-			$this->preface = $preface;
-		}
-		else {
-			$this->errors[] = self::INVALID_PREFACE;
-		}
-	}
+    public function setTitle($title)
+    {
+        if (!is_string($title) || !preg_match('#^[a-zA-Z0-9].{0,255}$#', $title)) {
+            $this->errors[] = self::INVALID_TITLE;
+        } else {
+            $this->title = $title;
+        }   
+    }
 
-	public function setPostContent($postContent)
-	{
-		if (is_string($postContent) && !empty($postContent))
-		{
-			$this->postContent = $postContent;
-		}
-		else {
-			$this->errors[] = self::INVALID_CONTENT;
-		}
-	}
+    public function setPreface($preface)
+    {
+        if (!is_string($preface) || !preg_match('#^[a-zA-Z0-9].{15,255}$#', $preface)) {
+            $this->errors[] = self::INVALID_PREFACE;
+        } else {
+            $this->preface = $preface;
+        }
+    }
 
-	public function setPublishedAt($publishedAt)
-	{
-		$this->publishedAt = $publishedAt;
-	}
+    public function setPostContent($postContent)
+    {
+        if (!is_string($postContent) || !preg_match('#^[a-zA-Z0-9].{15,}$#', $postContent)) {
+            $this->errors[] = self::INVALID_CONTENT;
+        } else {
+            $this->postContent = $postContent;
+        }
+    }
 
-	public function setUpdatedAt($updatedAt)
-	{
-		$this->updatedAt = $updatedAt;
-	}
+    public function setLink($link)
+    {
+        if (!is_string($link) || !preg_match('#^[a-zA-Z0-9:\./].{15,100}$#', $link)) {
+            $this->errors[] = self::INVALID_LINK;
+        } else {
+            $this->link = $link;
+        }
+    }
+
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
 }

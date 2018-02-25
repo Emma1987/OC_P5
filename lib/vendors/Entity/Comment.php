@@ -2,70 +2,97 @@
 namespace Entity;
 
 use EmmaM\Entity;
+use EmmaM\Mailer;
 
 class Comment extends Entity
 {
-	protected $id;
-	protected $author;
-	protected $commentContent;
-	protected $commentDate;
-	protected $postId;
-	protected $online = 0;
+    use Mailer;
 
-	// GETTERS & SETTERS
+    protected $id;
+    protected $author;
+    protected $commentContent;
+    protected $commentDate;
+    protected $postId;
+    protected $online = false;
 
-	public function getId()
-	{
-		return $this->id;
-	}
+    const INVALID_CONTENT = 'Le commentaire ne peut être vide, et doit contenir au moins 15 caractères.';
+    const INVALID_POSTID = 'L\'id de l\'article est invalide';
+    const INVALID_ONLINE = 'L\'attribut online n\'a pas pu être modifié.';
 
-	public function getAuthor()
-	{
-		return $this->author;
-	}
+    public function mailNewComment($sendTo)
+    {
+        $subject = 'Nouveau commentaire sur votre site !';
+        $body = 'Un nouveau commentaire a été posté sur votre site. Vous pouvez dès à présent le valider !';
 
-	public function getCommentContent()
-	{
-		return $this->commentContent;
-	}
+        $this->sendMail($sendTo, 'Administrateur', $subject, $body, $sendTo, $sendTo);
+    }
 
-	public function getCommentDate()
-	{
-		return $this->commentDate;
-	}
+    // GETTERS & SETTERS
 
-	public function getPostId()
-	{
-		return $this->postId;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getOnline()
-	{
-		return $this->online;
-	}
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
-	public function setAuthor($author)
-	{
-		$this->author = $author;
-	}
+    public function getCommentContent()
+    {
+        return $this->commentContent;
+    }
 
-	public function setCommentContent($commentContent)
-	{
-		$this->commentContent = $commentContent;
-	}
+    public function getCommentDate()
+    {
+        return $this->commentDate;
+    }
 
-	public function setCommentDate($commentDate)
-	{
-		$this->commentDate = $commentDate;
-	}
+    public function getPostId()
+    {
+        return $this->postId;
+    }
 
-	public function setPostId($postId)
-	{
-		$this->postId = $postId;
-	}
+    public function getOnline()
+    {
+        return $this->online;
+    }
 
-	public function setOnline($online)
-	{
-		$this->online = $online;
-	}
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    public function setCommentContent($commentContent)
+    {
+        if (empty($commentContent) || !is_string($commentContent) || strlen($commentContent) < 15) {
+            $this->errors[] = self::INVALID_CONTENT;
+        } else {
+            $this->commentContent = $commentContent;
+        }
+    }
+
+    public function setCommentDate($commentDate)
+    {
+        $this->commentDate = $commentDate;
+    }
+
+    public function setPostId($postId)
+    {
+        if (empty($postId)) {
+            $this->errors[] = self::INVALID_POSTID;
+        } else {
+            $this->postId = $postId;
+        }
+    }
+
+    public function setOnline($online)
+    {
+        if (!is_bool($online)) {
+            $this->errors[] = self::INVALID_ONLINE;
+        } else {
+            $this->online = $online;
+        }
+    }
 }

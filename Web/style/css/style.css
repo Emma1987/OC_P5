@@ -1,0 +1,407 @@
+/* LAYOUT */
+p 
+{
+    font-size: 16px;
+    text-align: justify;
+}
+
+h2
+{
+    font-size: 16px;
+}
+
+h3
+{
+    font-size: 15px;
+}
+
+header .nav
+{
+    width: 100%;
+    padding: 60px;
+    text-align: left;
+}
+
+.nav
+{
+    position: absolute;
+    background: transparent;
+}
+
+.nav ul
+{
+    list-style-type:none;
+}
+
+.nav li
+{
+    margin-left:2px;
+    float:left; /*IE*/
+}
+
+.nav ul li.drop-menu a
+{
+    width: 200px;
+    font-size: 15px;
+}
+
+.nav ul li a
+{
+    display:block;
+    float:left;   
+    width:120px;
+    color:black;
+    font-size: 17px;
+    font-weight: bold;
+    padding:5px;
+}
+
+.nav ul li a:hover
+{
+    color: #18BC9C;    
+    border-color:#696969 #DCDCDC #DCDCDC #696969;
+    text-decoration: none;
+}
+
+header .nav .name
+{
+    font-family: 'Satisfy', cursive;
+    font-size: 2.2em;
+    color: black;
+}
+
+.content .alert
+{
+    width: 50%;
+    margin: 0 auto 30px;
+}
+
+.homeContent .alert
+{
+    width: 27%;
+    position: absolute;
+    top: 170px;
+    left: 36%;
+}
+
+div.divImage
+{
+    height: 240px;
+    overflow: hidden;
+}
+
+div.listPostsImage
+{
+    max-height: 150px;
+    overflow: hidden;
+}
+
+div.divImage img
+{
+    width: 100%;
+}
+
+.footer-below 
+{
+  padding: 10px 0;
+  color: #919396;
+  background-color: #233140;
+}
+
+.footer-below a
+{
+    display: inline-block;
+    text-align: right; 
+    width: 120px;
+    color: #919396;
+}
+
+/* INDEX */
+.backgroundHomeImage
+{
+    margin:0;
+    padding:0;
+    background: url('../../../Web/uploads/portfolio/Accueil.jpg') no-repeat center;
+    height: 700px;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+    color: black;
+    font-size: 20px;
+}
+
+.panel.introduction
+{
+    width: 60%;
+    margin: 30px auto;
+    padding: 40px;
+}
+
+#portfolio .portfolio-item .portfolio-link .caption
+{
+    height: 240px;
+}
+
+#portfolio .portfolio-item
+{
+    padding: 15px;
+}
+
+div.portfolio-item
+{
+    overflow: hidden;
+}
+
+.btn.homeButton
+{
+    width: 100%;
+}
+
+/* POSTS */
+.content
+{
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+.panel.postUnique
+{
+    padding: 20px; 
+}
+
+.panel.postUnique, .panel.comments
+{
+    width: 70%;
+    margin: 20px auto;  
+}
+
+.panel-categories
+{
+    padding: 40px;
+}
+
+.panel-categories .btn
+{
+    width: 200px;
+    margin: 5px 0;
+}
+
+.btn.noClic:hover
+{
+    background-color: #fff;
+}
+
+.panel.list-posts
+{
+    width: 70%;
+    margin: 20px auto;
+}
+
+.panel-body .list-group-item
+{
+    margin-bottom: 5px;
+}
+
+.listPostsImage img
+{
+    max-width: 90%;
+}
+
+.imagePostUnique img
+{
+    max-width: 100%;
+}
+
+.post-buttons a
+{
+    width: 250px;
+    margin: 10px;
+}
+
+/* CONTACT */
+.backgroundContactImage
+{
+    margin:0;
+    padding:0;
+    background: url('../../../Web/uploads/portfolio/Contact.jpg') no-repeat center;
+    height: 800px;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+    color: black;
+    font-size: 20px;
+    padding: 300px;
+}
+
+.contactMessage
+{
+    position: absolute;
+    top: 300px;
+    left: 80px;
+}
+
+p.addPadding
+{
+    padding-top: 50px;
+}
+
+i.addPadding
+{
+    padding-right: 50px;
+}
+
+.contactMessage .btn-outline
+{
+    color: black;
+    border: 2px solid black;
+}
+
+.contactMessage .btn-outline:hover
+{
+    color: #18BC9C;
+}
+
+.scroll-top {
+
+  right: 2%;
+  bottom: 2%;
+  width: 40px;
+  height: 40px;
+
+}
+.scroll-top .btn {
+  font-size: 25px;
+
+  border-radius: 15%;
+  background: transparent;
+  color: #18BC9C;
+  border: 0px;
+}
+
+.scroll-top .btn:hover {
+  background: #18BC9C;
+  color: #fff;
+}
+
+/* USERS */
+div.addMarginBot
+{
+    margin-bottom: 200px;
+}
+
+/* MEDIA QUERIES
+================================== */
+@media screen and (max-width: 768px)
+{
+    p
+    {
+        font-size: 13px;
+    }
+
+    h1
+    {
+        font-size: 22px;
+    }
+
+    section h2, h2, h3
+    {
+        font-size: 18px;
+    }
+
+    header .nav
+    {
+        padding: 40px;
+    }
+    header .nav .name
+    {
+        font-size: 1.9em;
+    }
+
+    .content .alert
+    {
+        width: 90%;
+        margin: auto;
+    }
+
+    .homeContent .alert
+    {
+        width: 90%;
+        left: 5%;
+    }
+
+    .subMenu
+    {
+        position: relative;
+        top: 120px;
+    }
+
+    .subMenu ul
+    {
+        width: 90%;
+    }
+
+    .subMenu ul li 
+    {
+        width: 100%;
+    }
+
+    .subMenu .nav ul li a
+    {
+        font-size: 13px;
+        font-weight: normal;
+    }
+
+    .subMenu ul.dropdown-menu
+    {
+        width: 100%;
+    }
+
+    .homeContent
+    {
+        padding-top: 250px;
+    }
+
+    .nav .name
+    {
+        text-align: center;
+    }
+
+    .panel.introduction
+    {
+        width: 95%;
+        margin: 10px auto;
+        padding: 20px;
+    }
+
+    section
+    {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    footer .footer-above
+    {
+        padding: 10px;
+    }
+
+    footer .footer-col
+    {
+        margin-bottom: 20px;
+    }
+
+    .panel.postUnique, .panel.comments, .panel.list-posts
+    {
+        width: 95%;
+    }
+
+    .contactMessage
+    {
+        left: 50px;
+    }
+}
+
+@media screen and (max-width: 1024px)
+{
+    .nav ul li a
+    {
+        width:100px;
+    }
+}
