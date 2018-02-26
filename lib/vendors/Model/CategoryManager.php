@@ -27,6 +27,14 @@ class CategoryManager extends Manager
         return $category = $requete->fetchAll();
     }
 
+    public function getCategoryByName($name)
+    {
+        $requete = $this->getDb()->prepare('SELECT * FROM Category WHERE name = :name');
+        $requete->bindValue(':name', $name);
+        $requete->execute();
+        return $categoryName = $requete->fetchAll();
+    }
+
     public function addCategoriesToPost($postId, $categoryId)
     {
         $requete = $this->getDb()->prepare('INSERT INTO PostCategory (postId, categoryId) VALUES (:postId, :categoryId)');

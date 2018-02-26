@@ -61,19 +61,21 @@ class CategoryController extends Controller
 
     private function addCategory(HTTPRequest $request)
     {
-        if ($request->postExists('newCategory'))
-        {
-            $category = new Category([
-                'name'  => $request->postData('newCategory')
-            ]);
+        if ($this->manager->getManagerOf('Category')->getCategoryByName($request->postData('newCategory')) != null) {
+            Session::getInstance()->setFlash('danger', 'Cette catégorie existe déjà.');
+        } else {
+            if ($request->postExists('newCategory') && ($this->manager->getManagerOf('Category')->getCategoryByName($request->postData('newCategory')) == false)) {
+            $category = new Category(
+                ['name'  => $request->postData('newCategory')]
+            );
 
             if (($errors = $category->getErrors()) != null) {
                 $category->getErrorMessage();
-                return;
             } else {
                 $this->manager->getManagerOf('Category')->addNewCategory($category);
             }
             Session::getInstance()->setFlash('success', 'Une nouvelle catégorie a été ajoutée.');
+            }
         }
     }
 }
