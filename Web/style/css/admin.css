@@ -96,12 +96,12 @@ div.listPostsImage img
 }
 
 /* ADD POST*/
-.formPost .list-group-item
+.formPost .list-group-item, .listPostsAdmin i
 {
 	margin-bottom: 10px;
 }
 
-.btn.validButton
+.btn.validButton, .listPostsButtons a
 {
 	width: 150px;
 	margin: 5px 0 0 0;

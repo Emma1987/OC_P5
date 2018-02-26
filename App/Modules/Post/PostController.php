@@ -101,7 +101,7 @@ class PostController extends Controller
                 }
             }
             Session::getInstance()->setFlash('success', 'Votre article a bien été ajouté !');
-            $this->app->getHttpResponse()->redirect('/admin/listPosts');
+            $this->app->getHttpResponse()->redirect('/admin/post-' . $this->manager->getManagerOf('Post')->lastInsertId());
         }
     }
 
@@ -167,7 +167,7 @@ class PostController extends Controller
                     $this->manager->getManagerOf('Image')->addImage($image);
                 }
             }
-            $this->app->getHttpResponse()->redirect('/post-' . $request->getData('id'));
+            $this->app->getHttpResponse()->redirect('/admin/post-' . $request->getData('id'));
         }
     }
 

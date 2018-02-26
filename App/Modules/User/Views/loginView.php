@@ -14,6 +14,7 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="Mot de passe" name="password" type="password" required="required">
                             </div>
+                            <p><em><a href="resetPass">Mot de passe oublié ?</a></em></p>
                             <input type="submit" class="btn btn-lg btn-success btn-block" value="Connexion" />
 
                         </fieldset>

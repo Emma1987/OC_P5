@@ -7,4 +7,9 @@
 	<!-- Set the login credentials for the email used for sending emails -->
 	<define var="mailUsername" value="" />
 	<define var="mailPassword" value="" />
+	<!-- Defines databse connexion informations -->
+	<define var="host" value="localhost" />
+	<define var="databaseName" value="blogperso" />
+	<define var="user" value="root" />
+	<define var="password" value="root" />
 </definitions>

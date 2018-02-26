@@ -43,7 +43,7 @@ class UserController extends Controller
                 $user = new User([
                     'username'  => $request->postData('username'),
                     'email'     => $request->postData('email'),
-                    'password'  => password_hash($request->postData('password'), PASSWORD_BCRYPT)
+                    'password'  => ('password')
                 ]);
 
                 if (($errors = $user->getErrors()) != null) {
@@ -51,10 +51,11 @@ class UserController extends Controller
                 } else {
                     $user->createToken();
                     $user->setResetAt(date_format(new \Datetime(), 'Y-m-d H:i:s'));
+                    $user->setPassword(password_hash($request->postData('password'), PASSWORD_BCRYPT));
                     $this->manager->getManagerOf('User')->addUser($user);
 
                     $path = $this->app->getConfig()->getVarValue('path');
-                    $validateLink = $path .$this->manager->getManagerOf('User')->lastInsertId(). '-' .$user->getToken();
+                    $validateLink = $path. 'confirm-' .$this->manager->getManagerOf('User')->lastInsertId(). '-' .$user->getToken();
                     $sendFrom = $this->app->getConfig()->getVarValue('mailAdmin');
                     $user->confirmAccount($sendFrom, $validateLink, $user->getEmail());
 
@@ -100,7 +101,7 @@ class UserController extends Controller
                 $this->manager->getManagerOf('User')->updateToken($user->getToken(), $user->getId(), $user->getResetAt());
 
                 $path = $this->app->getConfig()->getVarValue('path');
-                $validateLink = $path .$user->getId(). '-' .$user->getToken();
+                $validateLink = $path. 'confirmReset-' .$user->getId(). '-' .$user->getToken();
                 $sendFrom = $this->app->getConfig()->getVarValue('mailAdmin');
                 $user->resetPassword($sendFrom, $validateLink, $user->getEmail());
 
