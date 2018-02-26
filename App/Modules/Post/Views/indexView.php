@@ -31,7 +31,7 @@
                         <!-- IMAGE -->
                         <?php if (!empty($postImage[$post->getId()])) : ?>
                             <div class="divImage">
-                                <img src="<?php echo '/z_blog/Web/uploads/img/' . $postImage[$post->getId()]; ?>" alt="<?php echo $postImage[$post->getId()]; ?>" />
+                                <img src="<?php echo '/Web/uploads/img/' . $postImage[$post->getId()]; ?>" alt="<?php echo $postImage[$post->getId()]; ?>" />
                             </div>
                         <?php endif; ?>
                     </a>
