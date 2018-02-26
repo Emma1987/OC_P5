@@ -40,14 +40,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a href="/z_blog/" target="_blank"><i class="fa fa-home fa-fw"></i> Website</a></li>
+                    <li><a href="/" target="_blank"><i class="fa fa-home fa-fw"></i> Website</a></li>
                 </ul>
                 <ul class="nav navbar-right navbar-top-links">
                     <li class="dropdown">
                         <?php if (empty($userLogged)) : ?>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user fa-fw"></i> Bonjour, <?= $userLogged->getUsername(); ?> <b class="caret"></b></a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="/z_blog/logout"><i class="fa fa-sign-out fa-fw"></i> Se déconnecter</a></li>
+                                <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Se déconnecter</a></li>
                             </ul>
                         <?php else: ?>
                             <p>Comment êtes vous arrivé ici ?!</p>
@@ -69,16 +69,16 @@
                                     </span>
                                 </div>
                             </li>
-                            <li><a href="/z_blog/admin/"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a></li>
+                            <li><a href="/admin/"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a></li>
                             <li><a href="#"><i class="fa fa-file-text-o fa-fw"></i> Articles<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <li><a href="/z_blog/admin/listPosts">Tous les articles</a></li>
-                                    <li><a href="/z_blog/admin/addPost">Ajouter un article</a></li>
+                                    <li><a href="/admin/listPosts">Tous les articles</a></li>
+                                    <li><a href="/admin/addPost">Ajouter un article</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/z_blog/admin/listComments"><i class="fa fa-comment-o fa-fw"></i> Commentaires</a></li>
-                            <li><a href="/z_blog/admin/listCategories"><i class="fa fa-tags fa-fw"></i> Catégories</a></li>
-                            <li><a href="/z_blog/admin/listUsers"><i class="fa fa-user-md fa-fw"></i> Utilisateurs</a></li>
+                            <li><a href="/admin/listComments"><i class="fa fa-comment-o fa-fw"></i> Commentaires</a></li>
+                            <li><a href="/admin/listCategories"><i class="fa fa-tags fa-fw"></i> Catégories</a></li>
+                            <li><a href="/admin/listUsers"><i class="fa fa-user-md fa-fw"></i> Utilisateurs</a></li>
                         </ul>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/z_blog/admin/listPosts">
+                            <a href="/admin/listPosts">
                                 <div class="panel-footer">
                                     <span class="pull-left">Voir plus</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -127,7 +127,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/z_blog/admin/listComments">
+                            <a href="/admin/listComments">
                                 <div class="panel-footer">
                                     <span class="pull-left">Voir plus</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -149,7 +149,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/z_blog/admin/listCategories">
+                            <a href="/admin/listCategories">
                                 <div class="panel-footer">
                                     <span class="pull-left">Voir plus</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -171,7 +171,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="/z_blog/admin/listUsers">
+                            <a href="/admin/listUsers">
                                 <div class="panel-footer">
                                     <span class="pull-left">Voir plus</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
