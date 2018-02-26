@@ -44,7 +44,7 @@
                 </ul>
                 <ul class="nav navbar-right navbar-top-links">
                     <li class="dropdown">
-                        <?php if (empty($userLogged)) : ?>
+                        <?php if (!empty($userLogged)) : ?>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user fa-fw"></i> Bonjour, <?= $userLogged->getUsername(); ?> <b class="caret"></b></a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Se déconnecter</a></li>
