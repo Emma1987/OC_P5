@@ -53,7 +53,7 @@
             <?php foreach ($comments as $comment) : ?>
                 <div class="list-group-item">
                     <i class="fa fa-user fa-fw"></i> <em>Posté par <?= htmlspecialchars($comment->getAuthor()); ?></em>
-                    <i class="fa fa-clock-o fa-fw"></i> Ajouté le <?php echo date_format(date_create($comment->getCommentDate()), 'd/m/Y à H:i'); ?>
+                    <i class="fa fa-clock-o fa-fw"></i> Ajouté le <?= date_format(date_create($comment->getCommentDate()), 'd/m/Y à H:i'); ?>
                     <p style="padding-top:10px;"><?= nl2br(htmlspecialchars($comment->getCommentContent())); ?></p>
                 </div>
             <?php endforeach; ?>

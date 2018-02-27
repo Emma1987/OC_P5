@@ -1,7 +1,7 @@
 <div class="panel panel-default post-unique">
     <!-- POST -->
     <p class="text-center"><i class="fa fa-user fa-fw"></i> <?= htmlspecialchars($post->getAuthor()); ?></p>
-    <p class="text-center"><em>Dernière modification, le <?php echo $post->getPublishedAt(); ?></em></p>
+    <p class="text-center"><em>Dernière modification, le <?= $post->getPublishedAt(); ?></em></p>
 
     <p class="justify">Chapô : <br /><?= nl2br(htmlspecialchars($post->getPreface())); ?></p>
     <p class="justify">Contenu : <br /> <?= nl2br(htmlspecialchars($post->getPostContent())); ?></p>
@@ -22,7 +22,7 @@
     </div>
 
     <?php if (!empty($post->getLink())) : ?>
-        <p class="text-center"><em><a href="<?php echo $post->getLink(); ?>">Voir le site</a></em></p>
+        <p class="text-center"><em><a href="<?= $post->getLink(); ?>">Voir le site</a></em></p>
     <?php endif; ?>
 
     <!-- IMAGE -->

@@ -21,17 +21,17 @@
         <div class="row">
             <?php foreach ($posts as $post) : ?>
                 <div class="col-sm-4 col-xs-12 portfolio-item">
-                    <a href="post-<?php echo $post->getId(); ?>" class="portfolio-link">
+                    <a href="post-<?= $post->getId(); ?>" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
-                                <p class="text-center"><?php echo $post->getTitle(); ?></p>
+                                <p class="text-center"><?= $post->getTitle(); ?></p>
                             </div>
                         </div>
                         <!-- IMAGE -->
                         <?php if (!empty($postImage[$post->getId()])) : ?>
                             <div class="divImage">
-                                <img src="<?php echo '/Web/uploads/img/' . $postImage[$post->getId()]; ?>" alt="<?php echo $postImage[$post->getId()]; ?>" />
+                                <img src="<?= '/Web/uploads/img/' . $postImage[$post->getId()]; ?>" alt="<?= $postImage[$post->getId()]; ?>" />
                             </div>
                         <?php endif; ?>
                     </a>

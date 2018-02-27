@@ -12,7 +12,7 @@
                 <div class="col-sm-9">
                     <p><i class="fa fa-user fa-fw"></i> <em>
                         <?= htmlspecialchars($comment->getAuthor()); ?> 
-                        a posté ce commentaire le <?php echo date_format(date_create($comment->getCommentDate()), 'd/m/Y à H:i'); ?>
+                        a posté ce commentaire le <?= date_format(date_create($comment->getCommentDate()), 'd/m/Y à H:i'); ?>
                     </em></p>
                     <p><?= nl2br(htmlspecialchars($comment->getCommentContent())); ?></p>
                 </div>
