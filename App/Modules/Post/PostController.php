@@ -40,7 +40,7 @@ class PostController extends Controller
         $this->post();
 
         if (Session::getInstance()->isActive()) {
-            $user = $this->manager->getManagerOf('User')->getUserById($_SESSION['auth']->getId());
+            $user = $this->manager->getManagerOf('User')->getUserById(Session::getInstance()->getAttribute('auth')->getId());
             $this->page->addVar('user', $user);
         }
     }
@@ -54,7 +54,7 @@ class PostController extends Controller
         $categories = $this->manager->getManagerOf('Category')->getAllCategories();
         $this->page->addVar('categories', $categories);
 
-        $user = $this->manager->getManagerOf('User')->getUserById($_SESSION['auth']->getId());
+        $user = $this->manager->getManagerOf('User')->getUserById(Session::getInstance()->getAttribute('auth')->getId());
         $this->page->addVar('user', $user);
 
         if ($request->postExists('author')) {
@@ -76,20 +76,16 @@ class PostController extends Controller
             }
 
             // CATEGORIES
-            if (!empty($request->postData('categoryName'))) {
-                foreach ($categories = $request->postData('categoryName') as $category) {
-                    $this->manager->getManagerOf('Category')->addCategoriesToPost($this->manager->getManagerOf('Post')->lastInsertId(), $category);
-                }
-            }
+            $this->addCategories($request->postData('categoryName'), $this->manager->getManagerOf('Post')->lastInsertId());
 
             // IMAGE
-            if (!empty($_FILES['image'])) {
+            if (!empty($_FILES['image']) && !empty($request->postData('imageTitle'))) {
                 $image = new Image([
                     'tmpName'   => $_FILES['image']['tmp_name'],
                     'title'     => preg_replace('#\s#', "", $request->postData('imageTitle')),
                     'extension' => substr(strrchr($_FILES['image']['type'], "/"), 1),
                     'size'      => $_FILES['image']['size'],
-                    'postId'    => $this->manager->getManagerOf('Post')->lastInsertId(),
+                    'postId'    => $this->manager->getManagerOf('Post')->lastInsertId()
                 ]);
 
                 if (($errors = $image->getErrors()) != null) {
@@ -143,11 +139,7 @@ class PostController extends Controller
             }
 
             // CATEGORIES
-            if (!empty($request->postData('categoryName'))) {
-                foreach (($request->postData('categoryName')) as $category) {
-                    $this->manager->getManagerOf('Category')->addCategoriesToPost($request->getData('id'), $category);
-                }
-            }
+            $this->addCategories($request->postData('categoryName'), $request->getData('id'));
 
             // IMAGE
             if (!empty($_FILES['image']) && !empty($request->postData('imageTitle'))) {
@@ -176,5 +168,14 @@ class PostController extends Controller
         $this->manager->getManagerOf('Post')->deletePost($request->getData('id'));
         Session::getInstance()->setFlash('success', 'L\'article a bien été supprimé.');
         $this->app->getHttpResponse()->redirect('/admin/listPosts');
+    }
+
+    private function addCategories($categoryName, $postId)
+    {
+        if (!empty($categoryName)) {
+            foreach ($categoryName as $category) {
+                $this->manager->getManagerOf('Category')->addCategoriesToPost($postId, $category);
+            }
+        }
     }
 }

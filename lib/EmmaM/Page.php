@@ -24,7 +24,7 @@ class Page extends Application
             throw new \RuntimeException('La vue spécifiée n\'existe pas.');
         }
 
-        Session::getInstance();
+        $session = Session::getInstance();
 
         extract($this->vars);
 
