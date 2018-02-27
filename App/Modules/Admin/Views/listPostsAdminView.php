@@ -1,7 +1,7 @@
 <?php foreach ($listPosts as $post) : ?>
     <div class="panel panel-default list-posts">
         <div class="panel-heading">
-            <h3><a href="post-<?= $post->getId(); ?>"><?php echo htmlspecialchars($post->getTitle()); ?></a></h3>
+            <h3><a href="post-<?= $post->getId(); ?>"><?= htmlspecialchars($post->getTitle()); ?></a></h3>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -18,7 +18,7 @@
 
                 <!-- CONTENT -->
                 <div class="col-sm-9 listPostsAdmin">
-                    <i class="fa fa-user fa-fw"></i> <em><?= htmlspecialchars($post->getAuthor()); ?> <i class="fa fa-clock-o fa-fw"></i> Dernière modification le <?php echo date_format(date_create($post->getLastDate()), 'd/m/Y à H:i'); ?></em>
+                    <i class="fa fa-user fa-fw"></i> <em><?= htmlspecialchars($post->getAuthor()); ?> <i class="fa fa-clock-o fa-fw"></i> Dernière modification le <?= date_format(date_create($post->getLastDate()), 'd/m/Y à H:i'); ?></em>
                     <p><?= nl2br(htmlspecialchars($post->getPreface())); ?></p><hr />
                 </div>
 

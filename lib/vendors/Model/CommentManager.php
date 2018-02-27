@@ -28,7 +28,7 @@ class CommentManager extends Manager
         $requete->bindValue(':postId', $postId, \PDO::PARAM_INT);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
-        return $comments = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getNewComments()

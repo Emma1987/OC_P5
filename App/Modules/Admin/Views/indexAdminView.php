@@ -9,11 +9,11 @@
                 <?php foreach ($posts as $post): ?>
                     <div class="row">
                         <div class="col-sm-10">
-                            <h3><?= $post->getTitle(); ?></h3>
+                            <h3><?= htmlspecialchars($post->getTitle()); ?></h3>
                             <i class="fa fa-user fa-fw"></i> <em><?= htmlspecialchars($post->getAuthor()); ?>
-                            <i class="fa fa-clock-o fa-fw"></i> Ajouté le <?php echo date_format(date_create($post->getPublishedAt()), 'd/m/Y à H:i'); ?></em>
+                            <i class="fa fa-clock-o fa-fw"></i> Ajouté le <?= date_format(date_create($post->getPublishedAt()), 'd/m/Y à H:i'); ?></em>
                             <?php if (!empty($post->getUpdatedAt())) : ?>
-                                <em>et modifié le <?php echo date_format(date_create($post->getUpdatedAt()), 'd/m/Y à H:i'); ?></em>
+                                <em>et modifié le <?= date_format(date_create($post->getUpdatedAt()), 'd/m/Y à H:i'); ?></em>
                             <?php endif; ?>
                         </div>
                         <div class="col-sm-2 indexAdmin">
@@ -36,11 +36,11 @@
                             Publié sur l'article : 
                             <?php foreach ($posts as $post) : ?>
                                 <?php if ($comment->getPostId() == $post->getId()) : ?>
-                                    <a href="post-<?= $post->getId(); ?>"><?php echo htmlspecialchars($post->getTitle()); ?></a>
+                                    <a href="post-<?= $post->getId(); ?>"><?= htmlspecialchars($post->getTitle()); ?></a>
                                 <?php endif; ?>
                             <?php endforeach; ?><br />
                             <i class="fa fa-user fa-fw"></i> <em><?= htmlspecialchars($comment->getAuthor()); ?></em>
-                            <i class="fa fa-clock-o fa-fw"></i> Ajouté le <?php echo date_format(date_create($comment->getCommentDate()), 'd/m/Y à H:i'); ?>
+                            <i class="fa fa-clock-o fa-fw"></i> Ajouté le <?= date_format(date_create($comment->getCommentDate()), 'd/m/Y à H:i'); ?>
                         </div>
                         <div class="col-sm-2 indexAdmin">
                             <a class="btn btn-default" href="listComments">Voir plus</a>
@@ -59,7 +59,9 @@
                 </div>
                 <div class="panel-body">
                     <?php if (!empty($newComments)) : ?>
-                        <a href="listComments" style="color:red;"><?= $newComments ?> nouveau(x) commentaire(s) à valider !</a>
+                        <a href="listComments" style="color:red;">
+                            <?= $newComments; ?> nouveau(x) commentaire(s) à valider !
+                        </a>
                     <?php else: ?>
                         <p>Aucune nouvelle notification.</p>
                     <?php endif; ?>
@@ -73,7 +75,7 @@
                 </div>
                 <div class="panel-body indexAdmin">
                     <?php foreach ($categories as $category) : ?>
-                        <h3 class="text-center"> <?= $category->getName(); ?></h3>
+                        <h3 class="text-center"> <?= htmlspecialchars($category->getName()); ?></h3>
                     <?php endforeach; ?>
                     <a class="btn btn-default" href="listCategories">Voir plus</a>
                 </div>

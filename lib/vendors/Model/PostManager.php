@@ -17,7 +17,7 @@ class PostManager extends Manager
     {
         $requete = $this->getDb()->query('SELECT * FROM Post ORDER BY publishedAt DESC LIMIT 6');
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Post');
-        return $posts = $requete->fetchAll();
+        return $requete->fetchAll();
         $requete->closeCursor();
     }
 
