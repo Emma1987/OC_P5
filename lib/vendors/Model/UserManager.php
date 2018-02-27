@@ -28,7 +28,7 @@ class UserManager extends Manager
         $requete->bindValue(':username', $username);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-        return $user = $requete->fetch();
+        return $requete->fetch();
     }
 
     public function getUserByEmail($email)
