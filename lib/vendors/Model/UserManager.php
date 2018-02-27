@@ -10,7 +10,7 @@ class UserManager extends Manager
     {
         $requete = $this->getDb()->query('SELECT * FROM User');
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-        return $users = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getUserById($id)
@@ -19,7 +19,7 @@ class UserManager extends Manager
         $requete->bindValue(':id', $id);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-        return $user = $requete->fetch();
+        return $requete->fetch();
     }
 
     public function getUserByUsername($username)
@@ -43,7 +43,7 @@ class UserManager extends Manager
     public function countUsers()
     {
         $requete = $this->getDb()->query('SELECT COUNT(*) FROM User');
-        return $userNumber = $requete->fetchColumn();
+        return $requete->fetchColumn();
     }
 
     public function confirmAccount(User $user)

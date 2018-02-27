@@ -34,7 +34,7 @@ class CommentController extends Controller
                 'postId'        => $request->getData('id')
             ]);
 
-            if (($errors = $comment->getErrors()) != null) {
+            if ($comment->getErrors() != null) {
                 $comment->getErrorMessage();
             } else {
                 $this->manager->getManagerOf('Comment')->addComment($comment);

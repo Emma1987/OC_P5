@@ -10,7 +10,7 @@ class PostManager extends Manager
     {
         $requete = $this->getDb()->query('SELECT * FROM Post ORDER BY publishedAt DESC');
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Post');
-        return $posts = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getHomePosts()
@@ -27,13 +27,13 @@ class PostManager extends Manager
         $requete->bindValue(':id', $postId, \PDO::PARAM_INT);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Post');
-        return $post = $requete->fetch();
+        return $requete->fetch();
     }
 
     public function countPosts()
     {
         $requete = $this->getDb()->query('SELECT COUNT(*) FROM Post');
-        return $postNumber = $requete->fetchColumn();
+        return $requete->fetchColumn();
     }
 
     public function addPost(Post $post)

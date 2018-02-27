@@ -60,8 +60,8 @@
                 <div class="panel-body">
                     <?php if (!empty($newComments)) : ?>
                         <a href="listComments" style="color:red;"><?= $newComments ?> nouveau(x) commentaire(s) à valider !</a>
-                        <?php else: ?>
-                            <p>Aucune nouvelle notification.</p>
+                    <?php else: ?>
+                        <p>Aucune nouvelle notification.</p>
                     <?php endif; ?>
                 </div>
             </div>

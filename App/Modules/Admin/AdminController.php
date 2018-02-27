@@ -9,7 +9,7 @@ use EmmaM\Session;
 
 class AdminController extends Controller
 {
-    public function executeIndexAdmin(HTTPRequest $request)
+    public function executeIndexAdmin()
     {
         $this->adminLayout();
 
@@ -35,7 +35,7 @@ class AdminController extends Controller
         $this->listPosts();
     }
 
-    public function executePostAdmin(HTTPRequest $request)
+    public function executePostAdmin()
     {
         $this->adminLayout();
 
