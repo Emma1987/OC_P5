@@ -76,7 +76,7 @@ class Controller
         $adminPosts = $this->manager->getManagerOf('Post')->countPosts();
         $adminComments = $this->manager->getManagerOf('Comment')->countComments();
         $adminCategories = $this->manager->getManagerOf('Category')->countCategories();
-        $userLogged = $this->manager->getManagerOf('User')->getUserById($_SESSION['auth']->getId());
+        $userLogged = $this->manager->getManagerOf('User')->getUserById(Session::getInstance()->getAttribute('auth')->getId());
         $adminUsers = $this->manager->getManagerOf('User')->countUsers();
 
         $this->page->addVar('adminPosts', $adminPosts);
