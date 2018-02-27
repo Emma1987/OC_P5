@@ -10,7 +10,7 @@ class CommentManager extends Manager
     {
         $requete = $this->getDb()->query('SELECT * FROM Comment ORDER BY online, commentDate DESC');
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
-        return $comments = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getCommentById($commentId)
@@ -19,7 +19,7 @@ class CommentManager extends Manager
         $requete->bindValue(':id', $commentId, \PDO::PARAM_INT);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
-        return $comment = $requete->fetch();
+        return $requete->fetch();
     }
 
     public function getPublishedCommentsByPostId($postId)
@@ -34,13 +34,13 @@ class CommentManager extends Manager
     public function getNewComments()
     {
         $requete = $this->getDb()->query('SELECT COUNT(*) FROM Comment WHERE online = false');
-        return $newComments = $requete->fetchColumn();
+        return $requete->fetchColumn();
     }
 
     public function countComments()
     {
         $requete = $this->getDb()->query('SELECT COUNT(*) FROM Comment');
-        return $commentNumber = $requete->fetchColumn();
+        return $requete->fetchColumn();
     }
 
     public function addComment(Comment $comment)

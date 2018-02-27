@@ -46,7 +46,7 @@ class UserController extends Controller
                     'password'  => ('password')
                 ]);
 
-                if (($errors = $user->getErrors()) != null) {
+                if ($user->getErrors() != null) {
                     $user->getErrorMessage();
                 } else {
                     $user->createToken();

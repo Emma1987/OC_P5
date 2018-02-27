@@ -24,7 +24,7 @@ class ContactController extends Controller
                 'message'   => $request->postData('message')]
             );
 
-            if (($errors = $message->getErrors()) != null) {
+            if ($message->getErrors() != null) {
                 $message->getErrorMessage();
             } else {
                 $message->sendContactMessage($this->app->getConfig()->getVarValue('mailAdmin'));

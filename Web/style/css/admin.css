@@ -123,7 +123,8 @@ div.listPostsImage img
 	text-align: left;
 }
 
-input[type=checkbox] {
+input[type=checkbox]
+{
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-ms-appearance: none;
@@ -135,18 +136,20 @@ input[type=checkbox] {
 	border: 1px solid #ccc;    
 }
 
-input[type="checkbox"]:checked {
+input[type="checkbox"]:checked 
+{
 	background: #ccc;
  	margin-right: 5px;
 	position: relative;
-		&:before {
+		&:before 
+		{
 		font-family: FontAwesome;
 		content: '\f00c';
 		display: block;
 		color: grey;
 		font-size: 13px;
 		position: absolute;
-  }
+  		}
 }
 
 /* UPDATE POST */

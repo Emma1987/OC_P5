@@ -69,12 +69,12 @@ class CategoryController extends Controller
                     ['name'  => $request->postData('newCategory')]
                 );
 
-                if (($errors = $category->getErrors()) != null) {
+                if (($category->getErrors()) != null) {
                     $category->getErrorMessage();
                 } else {
                     $this->manager->getManagerOf('Category')->addNewCategory($category);
+                    Session::getInstance()->setFlash('success', 'Une nouvelle catégorie a été ajoutée.');
                 }
-                Session::getInstance()->setFlash('success', 'Une nouvelle catégorie a été ajoutée.');
             }
         }
     }

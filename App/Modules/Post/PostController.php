@@ -9,7 +9,7 @@ use EmmaM\Session;
 
 class PostController extends Controller
 {
-    public function executeIndex(HTTPRequest $request)
+    public function executeIndex()
     {
         $this->page->addVar('title', 'Emmanuelle Mercadal');
         $this->page->addVar('contentClass', 'homeContent');
@@ -33,7 +33,7 @@ class PostController extends Controller
         $this->listPosts();
     }
 
-    public function executePost(HTTPRequest $request)
+    public function executePost()
     {
         $this->page->addVar('contentClass', 'content');
 

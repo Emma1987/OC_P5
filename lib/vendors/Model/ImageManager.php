@@ -10,7 +10,7 @@ class ImageManager extends Manager
     {
         $requete = $this->getDb()->query('SELECT * FROM Image');
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Image');
-        return $images = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getImageByPost($postId)
@@ -19,7 +19,7 @@ class ImageManager extends Manager
         $requete->bindValue(':postId', $postId, \PDO::PARAM_INT);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Image');
-        return $image = $requete->fetch();
+        return $requete->fetch();
     }
 
     public function addImage(Image $image)

@@ -10,7 +10,7 @@ class CategoryManager extends Manager
     {
         $requete = $this->getDb()->query('SELECT * FROM Category');
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Category');
-        return $categories = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getCategoriesByPost($postId)
@@ -24,7 +24,7 @@ class CategoryManager extends Manager
         $requete->bindValue(':postId', $postId, \PDO::PARAM_INT);
         $requete->execute();
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Category');
-        return $category = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function getCategoryByName($name)
@@ -32,7 +32,7 @@ class CategoryManager extends Manager
         $requete = $this->getDb()->prepare('SELECT * FROM Category WHERE name = :name');
         $requete->bindValue(':name', $name);
         $requete->execute();
-        return $categoryName = $requete->fetchAll();
+        return $requete->fetchAll();
     }
 
     public function addCategoriesToPost($postId, $categoryId)
@@ -46,7 +46,7 @@ class CategoryManager extends Manager
     public function countCategories()
     {
         $requete = $this->getDb()->query('SELECT COUNT(*) FROM Category');
-        return $categoryNumber = $requete->fetchColumn();
+        return $requete->fetchColumn();
     }
 
     public function addNewCategory(Category $category)
