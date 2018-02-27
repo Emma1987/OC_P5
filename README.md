@@ -1,4 +1,5 @@
 # OC_P5
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/28402ab29f2b459bbaa99fc5a9be2077)](https://www.codacy.com/app/Emma1987/OC_P5?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Emma1987/OC_P5&amp;utm_campaign=Badge_Grade)
 ## First blog in PHP
 This blog developped in PHP and using OOP is a project for my studies with OpenClassrooms.
 
