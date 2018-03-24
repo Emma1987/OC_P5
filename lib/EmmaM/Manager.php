@@ -7,8 +7,14 @@ class Manager
 
     public function __construct()
     {
+        $config = new Config();
+        $host = $config->getConfig('host');
+        $dbname = $config->getConfig('databaseName');
+        $user = $config->getConfig('user');
+        $pass = $config->getConfig('password');
+
         try {
-            $this->setDb(new \PDO('mysql:host=localhost;dbname=blogperso;charset=utf8', 'root', 'root'));
+            $this->setDb(new \PDO('mysql:host='.$host.';dbname='.$dbname.';charset=utf8', $user, $pass));
             $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch(Exception $e) {
             die('Erreur : '.$e->getMessage());
