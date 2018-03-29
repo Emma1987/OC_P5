@@ -160,6 +160,7 @@ class PostController extends Controller
                     $this->manager->getManagerOf('Image')->addImage($image);
                 }
             }
+            Session::getInstance()->setFlash('success', 'Votre article a bien été modifié !');
             $this->app->getHttpResponse()->redirect('/admin/post-' . $request->getData('id'));
         }
     }
