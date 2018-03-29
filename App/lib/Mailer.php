@@ -12,8 +12,8 @@ trait Mailer
     public function sendMail($sendFrom, $sendFromName, $subject, $body, $sendTo, $replyTo = null)
     {
         $config = new Config();
-        $mailUsername = $config->getConfig('mailUsername');
-        $mailPassword = $config->getConfig('mailPassword');
+        $mailUsername = $config->getVarValue('mailUsername');
+        $mailPassword = $config->getVarValue('mailPassword');
 
         $mail = new PHPMailer(true);
         try {
