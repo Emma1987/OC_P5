@@ -25,15 +25,6 @@ class Route
         return !empty($this->getVarsNames());
     }
 
-    public function match($url)
-    {
-        if (preg_match('#^'.$this->getUrl().'$#', $url, $matches)) {
-            return $matches;
-        } else {
-            return false;
-        }
-    }
-
     // GETTERS & SETTERS
 
     public function getAction()

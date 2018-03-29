@@ -15,10 +15,19 @@ class Router
         }
     }
 
+    public function match(Route $route, $url)
+    {
+        if (preg_match('#^'.$route->getUrl().'$#', $url, $matches)) {
+            return $matches;
+        } else {
+            return false;
+        }
+    }
+
     public function getRoute($url)
     {
         foreach ($this->routes as $route) {
-            if (($varsValues = $route->match($url)) !== false) {
+            if (($varsValues = $this->match($route, $url)) !== false) {
                 if ($route->hasVars()) {
                     $varsNames = $route->getVarsNames();
                     $listVars = [];
