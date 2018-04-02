@@ -8,6 +8,10 @@ use App\Session;
 
 class ImageController extends Controller
 {
+	/**
+	 * Delete an image associated to the post
+	 * @param  HTTPRequest $request
+	 */
     public function executeDeleteImage(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Image')->deleteImage($request->getData('id'));

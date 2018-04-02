@@ -10,6 +10,9 @@ use App\Session;
 
 class PostController extends Controller
 {
+    /**
+     * Render the homepage view
+     */
     public function executeIndex()
     {
         $this->page->addVar('title', 'Emmanuelle Mercadal');
@@ -26,6 +29,9 @@ class PostController extends Controller
         $this->page->addVar('postImage', $postImage);
     }
 
+    /**
+     * Return all the posts
+     */
     public function executeListPostsFront()
     {
         $this->page->addVar('title', 'Tous les articles');
@@ -34,6 +40,9 @@ class PostController extends Controller
         $this->listPosts();
     }
 
+    /**
+     * Return one post
+     */
     public function executePost()
     {
         $this->page->addVar('contentClass', 'content');
@@ -46,6 +55,10 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Add a new post with associated image and categories
+     * @param  HTTPRequest $request
+     */
     public function executeInsertPost(HTTPRequest $request)
     {
         $this->adminLayout();
@@ -103,6 +116,10 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Update a post and its associated image and categories
+     * @param  HTTPRequest $request
+     */
     public function executeUpdatePost(HTTPRequest $request)
     {
         $this->adminLayout();
@@ -166,6 +183,10 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Delete a post
+     * @param  HTTPRequest $request
+     */
     public function executeDeletePost(HTTPRequest $request)
     {
         $this->manager->getManagerOf('Post')->deletePost($request->getData('id'));
@@ -173,6 +194,11 @@ class PostController extends Controller
         $this->app->getHttpResponse()->redirect('/admin/listPosts');
     }
 
+    /**
+     * Add categories on insert and update post methods
+     * @param string $categoryName
+     * @param int $postId
+     */
     private function addCategories($categoryName, $postId)
     {
         if (!empty($categoryName)) {

@@ -9,9 +9,24 @@ class ContactForm extends Entity
 {
     use Mailer;
 
+    /**
+     * @var string
+     */
     protected $firstname;
+
+    /**
+     * @var string
+     */
     protected $lastname;
+
+    /**
+     * @var string
+     */
     protected $email;
+
+    /**
+     * @var string
+     */
     protected $message;
 
     const INVALID_FIRSTNAME = 'Votre nom doit être composé de 3 à 20 caractères alphanumériques.';
@@ -19,6 +34,10 @@ class ContactForm extends Entity
     const INVALID_EMAIL = 'L\'email saisis semble ne pas être valide.';
     const INVALID_MESSAGE = 'Votre message doit comporter au minimum 15 caractères.';
 
+    /**
+     * Send the message
+     * @param  string $sendTo [The address to send the mail]
+     */
     public function sendContactMessage($sendTo)
     {
         $subject = htmlspecialchars($this->getLastname()).' '.htmlspecialchars($this->getFirstname()).' vous a envoyé un message !';
@@ -34,28 +53,46 @@ class ContactForm extends Entity
         );
     }
 
-    // GETTERS & SETTERS
-
+    /**
+     * Get firstname
+     * @return string
+     */
     public function getFirstname()
     {
         return $this->firstname;
     }
 
+    /**
+     * Get lastname
+     * @return string
+     */
     public function getLastname()
     {
         return $this->lastname;
     }
 
+    /**
+     * Get email
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * Get message
+     * @return string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
+    /**
+     * Set firstname
+     * @param string $firstname
+     */
     public function setFirstname($firstname)
     {
         if (!preg_match('#^[a-zA-Z0-9].{3,20}$#', $firstname)) {
@@ -65,6 +102,10 @@ class ContactForm extends Entity
         }
     }
 
+    /**
+     * Set lastname
+     * @param string $lastname
+     */
     public function setLastName($lastname)
     {
         if (!preg_match('#^[a-zA-Z0-9].{3,20}$#', $lastname)) {
@@ -74,6 +115,10 @@ class ContactForm extends Entity
         }
     }
 
+    /**
+     * Set email
+     * @param string $email
+     */
     public function setEmail($email)
     {
         if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -83,6 +128,10 @@ class ContactForm extends Entity
         }
     }
 
+    /**
+     * Set message
+     * @param string $message
+     */
     public function setMessage($message)
     {
         if (!preg_match('#^[a-zA-Z0-9].{15,}$#', $message)) {

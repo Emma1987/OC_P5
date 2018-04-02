@@ -18,6 +18,10 @@ class Application
         $this->config = new Config();
     }
 
+    /**
+     * Get the controller to call
+     * @return Controller $controllerClass
+     */
     public function getController()
     {
         $router = new Router();
@@ -50,6 +54,9 @@ class Application
         return new $controllerClass($this, $matchedRoute->getModule(), $matchedRoute->getAction(), $matchedRoute->getLayout());
     }
 
+    /**
+     * Run the application
+     */
     public function run()
     {
         $controller = $this->getController();
@@ -59,18 +66,28 @@ class Application
         $this->httpResponse->send();
     }
 
-    // GETTERS & SETTERS
-
+    /**
+     * Get http request
+     * @return  HttpRequest $httpRequest [The request]
+     */
     public function getHttpRequest()
     {
         return $this->httpRequest;
     }
 
+    /**
+     * Get http response
+     * @return HttpResponse $httpResponse [The response]
+     */
     public function getHttpResponse()
     {
         return $this->httpResponse;
     }
 
+    /**
+     * Get config
+     * @return Config $config [The config]
+     */
     public function getConfig()
     {
         return $this->config;

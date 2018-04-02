@@ -9,12 +9,19 @@ use App\Session;
 
 class ContactController extends Controller
 {
+    /**
+     * Render the contact page view
+     */
     public function executeContactPage()
     {
         $this->page->addVar('contentClass', 'contactContent');
         $this->page->addVar('title', 'Contact');
     }
 
+    /**
+     * Send a message from contact form on homepage
+     * @param  HTTPRequest $request
+     */
     public function executeContactMessage(HTTPRequest $request)
     {
         if (!empty($request->postData('firstname'))) {
@@ -44,6 +51,9 @@ class ContactController extends Controller
         }
     }
 
+    /**
+     * Render the mentions légales page view
+     */
     public function executeMentionsLegales()
     {
         $this->page->addVar('contentClass', 'content');

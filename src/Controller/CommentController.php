@@ -9,6 +9,9 @@ use App\Session;
 
 class CommentController extends Controller
 {
+    /**
+     * Return all the comments
+     */
     public function executeListComments()
     {
         $this->adminLayout();
@@ -25,6 +28,10 @@ class CommentController extends Controller
         $this->page->addVar('postArray', $postArray);
     }
 
+    /**
+     * Add a new comment and send a mail to the administrator
+     * @param  HTTPRequest $request
+     */
     public function executeInsertComment(HTTPRequest $request)
     {
         if ($request->postExists('authorValue')) {
@@ -50,6 +57,10 @@ class CommentController extends Controller
         $this->app->getHttpResponse()->redirect('post-' . $request->getData('id'));
     }
 
+    /**
+     * Validate a comment by changing the online status
+     * @param  HTTPRequest $request
+     */
     public function executeValidateComment(HTTPRequest $request)
     {
         $comment = $this->manager->getManagerOf('Comment')->getCommentById($request->getData('id'));
@@ -61,6 +72,10 @@ class CommentController extends Controller
         $this->app->getHttpResponse()->redirect('listComments');
     }
 
+    /**
+     * Delete a comment
+     * @param  HTTPRequest $request
+     */
     public function executeDeleteComment(HTTPRequest $request)
     {
         $comment = $this->manager->getManagerOf('Comment')->getCommentById($request->getData('id'));

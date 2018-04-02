@@ -4,10 +4,17 @@ namespace App;
 
 class Router
 {
+    /**
+     * @var array
+     */
     protected $routes = [];
 
     const NO_ROUTE = 1;
 
+    /**
+     * Add route in array
+     * @param Route $route
+     */
     public function addRoute(Route $route)
     {
         if (!in_array($route, $this->routes)) {
@@ -15,6 +22,11 @@ class Router
         }
     }
 
+    /**
+     * Define if a route matches with the url
+     * @param  Route  $route
+     * @param  string $url
+     */
     public function match(Route $route, $url)
     {
         if (preg_match('#^'.$route->getUrl().'$#', $url, $matches)) {
@@ -24,6 +36,10 @@ class Router
         }
     }
 
+    /**
+     * Get the route matching the url
+     * @param  string $url
+     */
     public function getRoute($url)
     {
         foreach ($this->routes as $route) {

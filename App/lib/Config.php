@@ -6,6 +6,10 @@ class Config
 {
     protected $vars = [];
 
+    /**
+     * Get the value of a variable in config file
+     * @param  string $var [The variable to get its value]
+     */
     public function getVarValue($var)
     {
         if (!$this->vars) {

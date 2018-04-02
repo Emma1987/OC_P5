@@ -6,10 +6,26 @@ use App\Application;
 
 class Page extends Application
 {
+    /**
+     * @var string
+     */
     protected $contentFile;
+
+    /**
+     * @var array
+     */
     protected $vars = [];
+
+    /**
+     * @var string
+     */
     protected $layout;
 
+    /**
+     * Set values to the route variables
+     * @param string $var
+     * @param string $value
+     */
     public function addVar($var, $value)
     {
         if (!is_string($var) || is_numeric($var) || empty($var)) {
@@ -19,6 +35,9 @@ class Page extends Application
         $this->vars[$var] = $value;
     }
 
+    /**
+     * Get the page to return
+     */
     public function getPage()
     {
         if (!file_exists($this->contentFile)) {
@@ -38,18 +57,28 @@ class Page extends Application
         return ob_get_clean();
     }
 
-    // GETTERS & SETTERS
-
+    /**
+     * Get content file
+     * @return string
+     */
     public function getContentFile()
     {
         return $this->contentFile;
     }
 
+    /**
+     * Set content file
+     * @param string $contentFile
+     */
     public function setContentFile($contentFile)
     {
         $this->contentFile = $contentFile;
     }
 
+    /**
+     * Set layout
+     * @param string $layout
+     */
     public function setLayout($layout)
     {
         $this->layout = $layout;

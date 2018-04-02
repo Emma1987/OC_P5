@@ -10,6 +10,9 @@ use App\Session;
 
 class AdminController extends Controller
 {
+    /**
+     * Render the homepage view
+     */
     public function executeIndexAdmin()
     {
         $this->adminLayout();
@@ -27,6 +30,9 @@ class AdminController extends Controller
         $this->page->addVar('categories', $categories);
     }
 
+    /**
+     * Return all the posts
+     */
     public function executeListPostsAdmin()
     {
         $this->adminLayout();
@@ -36,6 +42,9 @@ class AdminController extends Controller
         $this->listPosts();
     }
 
+    /**
+     * Return one post
+     */
     public function executePostAdmin()
     {
         $this->adminLayout();

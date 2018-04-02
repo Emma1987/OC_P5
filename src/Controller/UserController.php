@@ -9,6 +9,9 @@ use App\Session;
 
 class UserController extends Controller
 {
+    /**
+     * Return all the users
+     */
     public function executeListUsers()
     {
         $this->adminLayout();
@@ -20,6 +23,10 @@ class UserController extends Controller
         $this->page->addVar('users', $users);
     }
 
+    /**
+     * Register a new user, and send a mail for validation
+     * @param  HTTPRequest $request
+     */
     public function executeRegister(HTTPRequest $request)
     {
         $this->page->addVar('title', 'Inscription');
@@ -68,6 +75,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Confirm the registration by adding visitor role
+     * @param  HTTPRequest $request
+     */
     public function executeConfirmRegister(HTTPRequest $request)
     {
         $user = $this->manager->getManagerOf('User')->getUserById($request->getData('id'));
@@ -87,6 +98,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Send a mail to reset forgotten password
+     * @param  HTTPRequest $request
+     */
     public function executeResetPass(HTTPRequest $request)
     {
         $this->page->addVar('title', 'Réinitialisation mot de passe');
@@ -111,6 +126,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Update the password
+     * @param  HTTPRequest $request
+     */
     public function executeConfirmReset(HTTPRequest $request)
     {
         $this->page->addVar('title', 'Réinitialisation mot de passe');
@@ -145,6 +164,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Login a user
+     * @param  HTTPRequest $request
+     */
     public function executeLogin(HTTPRequest $request)
     {
         $this->page->addVar('title', 'Connexion');
@@ -163,6 +186,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Logout a user
+     */
     public function executeLogout()
     {
         Session::getInstance()->setAttribute('auth', null);
@@ -170,6 +196,10 @@ class UserController extends Controller
         $this->app->getHttpResponse()->redirect('/');
     }
 
+    /**
+     * Update role user
+     * @param  HTTPRequest $request
+     */
     public function executeSetRole(HTTPRequest $request)
     {
         $userRole = $request->getData('userRole');
@@ -185,6 +215,10 @@ class UserController extends Controller
         $this->app->getHttpResponse()->redirect('/admin/listUsers');
     }
 
+    /**
+     * Delete a user
+     * @param  HTTPRequest $request
+     */
     public function executeDeleteUser(HTTPRequest $request)
     {
         $this->manager->getManagerOf('User')->deleteUser($request->getData('id'));

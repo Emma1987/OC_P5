@@ -22,6 +22,10 @@ class Manager
         }   
     }
 
+    /**
+     * Return the manager to call
+     * @param  string $module
+     */
     public function getManagerOf($module)
     {
         if (!is_string($module) || empty($module)) {
@@ -35,18 +39,25 @@ class Manager
         return $this->manager[$module];
     }
 
+    /**
+     * Get the last insert id in database
+     */
     public function lastInsertId()
     {
         return $this->getDb()->lastInsertId();
     }
 
-    // GETTERS & SETTERS
-
+    /**
+     * Get the connection to the database
+     */
     public function getDb()
     {
         return $this->db;
     }
 
+    /**
+     * Set the connection to the database
+     */
     public function setDb($db)
     {
         $this->db = $db;

@@ -4,12 +4,39 @@ namespace App;
 
 class Controller
 {
+    /**
+     * @var Application
+     */
     protected $app;
+
+    /**
+     * @var string
+     */
     protected $action = '';
+
+    /**
+     * @var string
+     */
     protected $module = '';
+
+    /**
+     * @var Page
+     */
     protected $page = null;
+
+    /**
+     * @var string
+     */
     protected $view = '';
+
+    /**
+     * @var string
+     */
     protected $layout = '';
+
+    /**
+     * @var Manager
+     */
     protected $manager = null;
 
     public function __construct(Application $app, $module, $action, $layout)
@@ -24,6 +51,9 @@ class Controller
         $this->setLayout($layout);
     }
 
+    /**
+     * Call the executeAction method
+     */
     public function execute()
     {
         $method = 'execute' . ucfirst($this->getAction());
@@ -35,6 +65,10 @@ class Controller
         $this->$method($this->app->getHttpRequest());
     }
 
+    /**
+     * Assign the view to the page
+     * @param string $view
+     */
     public function setView($view)
     {
         if (!is_string($view) || empty($view)) {
@@ -45,6 +79,10 @@ class Controller
         $this->page->setContentFile(__DIR__.'/../../src/Views/'.$this->module.'/'.$this->view.'View.php');
     }
 
+    /**
+     * Assign the layout to the page
+     * @param [type] $layout [description]
+     */
     public function setLayout($layout)
     {
         if (!is_string($layout)) {
@@ -57,6 +95,9 @@ class Controller
 
     // FUNCTIONS USED IN SEVERAL CONTROLLERS
     
+    /**
+     * Restrict access to admin pages to users with role admin
+     */
     private function restrictAccess()
     {
         if (!(Session::getInstance()->isActive()) || (Session::getInstance()->getAttribute('auth')->getRole() != 2)) {
@@ -70,6 +111,9 @@ class Controller
         }
     }
 
+    /**
+     * Render the admin layout
+     */
     protected function adminLayout()
     {
         $this->restrictAccess();
@@ -87,6 +131,10 @@ class Controller
         $this->page->addVar('adminUsers', $adminUsers);
     }
 
+    /**
+     * Get all the posts
+     * Used in AdminController and PostController
+     */
     protected function listPosts()
     {
         $listPosts = $this->manager->getManagerOf('Post')->getAllPosts();
@@ -100,6 +148,10 @@ class Controller
         $this->page->addVar('postImage', $postImage);
     }
 
+    /**
+     * Get a single post
+     * Used in AdminController and PostController
+     */
     protected function post()
     {
         $request = $this->app->getHttpRequest();
@@ -121,41 +173,73 @@ class Controller
 
     // GETTERS & SETTERS
     
+    /**
+     * Get app
+     * @return Application
+     */
     public function getApp()
     {
         return $this->app;
     }
 
+    /**
+     * Get action
+     * @return string
+     */
     public function getAction()
     {
         return $this->action;
     }
 
+    /**
+     * Get module
+     * @return string
+     */
     public function getModule()
     {
         return $this->module;
     }
 
+    /**
+     * Get page
+     * @return Page
+     */
     public function getPage()
     {
         return $this->page;
     }
 
+    /**
+     * Get layout
+     * @return string
+     */
     public function getLayout()
     {
         return $this->layout;
     }
 
+    /**
+     * Get manager
+     * @return Manager
+     */
     public function getManager()
     {
         return $this->manager;
     }
 
+    /**
+     * Set action
+     * @param string $action
+     */
     public function setAction($action)
     {
         $this->action = $action;
     }
 
+    /**
+     * Set module
+     * @param string $module
+     */
     public function setModule($module)
     {
         $this->module = $module;

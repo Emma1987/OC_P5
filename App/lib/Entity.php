@@ -15,6 +15,10 @@ abstract class Entity
         }
     }
 
+    /**
+     * Hydrate a new entity
+     * @param  array  $data
+     */
     private function hydrate(array $data)
     {
         foreach ($data as $key => $value) {
@@ -26,6 +30,10 @@ abstract class Entity
         }
     }
 
+    /**
+     * Construct the error message to display
+     * @return string
+     */
     public function getErrorMessage()
     {
         $errors = $this->getErrors();
@@ -36,8 +44,10 @@ abstract class Entity
         Session::getInstance()->setFlash('danger', $message);
     }
 
-    // GETTERS & SETTERS
-    
+    /**
+     * Get errors
+     * @return array
+     */
     public function getErrors()
     {
         return $this->errors;
