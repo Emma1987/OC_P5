@@ -66,7 +66,8 @@ class PostController extends Controller
                 'link'      => $request->postData('link'),
                 'preface'   => $request->postData('preface'),
                 'postContent' => $request->postData('postContent'),
-                'publishedAt' => (date_format(new \Datetime(), 'Y-m-d H:i:s'))
+                'publishedAt' => (date_format(new \Datetime(), 'Y-m-d H:i:s')),
+                'userId'    => $user->getId()
             ]);
 
             if (($errors = $post->getErrors()) != null) {

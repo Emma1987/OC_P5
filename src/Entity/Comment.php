@@ -14,9 +14,10 @@ class Comment extends Entity
     protected $commentContent;
     protected $commentDate;
     protected $postId;
+    protected $userId;
     protected $online = false;
 
-    const INVALID_CONTENT = 'Le commentaire ne peut être vide, et doit contenir au moins 15 caractères.';
+    const INVALID_CONTENT = 'Le commentaire ne peut être vide, et doit contenir au moins 10 caractères.';
     const INVALID_POSTID = 'L\'id de l\'article est invalide';
     const INVALID_ONLINE = 'L\'attribut online n\'a pas pu être modifié.';
 
@@ -60,6 +61,11 @@ class Comment extends Entity
         return $this->online;
     }
 
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
     public function setAuthor($author)
     {
         $this->author = $author;
@@ -67,7 +73,7 @@ class Comment extends Entity
 
     public function setCommentContent($commentContent)
     {
-        if (empty($commentContent) || !is_string($commentContent) || strlen($commentContent) < 15) {
+        if (empty($commentContent) || !is_string($commentContent) || strlen($commentContent) < 10) {
             $this->errors[] = self::INVALID_CONTENT;
         } else {
             $this->commentContent = $commentContent;
@@ -95,5 +101,10 @@ class Comment extends Entity
         } else {
             $this->online = $online;
         }
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
     }
 }

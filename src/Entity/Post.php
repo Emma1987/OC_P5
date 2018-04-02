@@ -14,11 +14,12 @@ class Post extends Entity
     protected $link;
     protected $publishedAt;
     protected $updatedAt;
+    protected $userId;
 
-    const INVALID_AUTHOR = 'Le nom de l\'auteur doit être composé de 3 à 20 caractères alphanumériques.';
-    const INVALID_TITLE = 'Le titre de votre article doit être une chaine de caractères de 15 à 255 caractères.';
-    const INVALID_PREFACE = 'La présentation de votre article doit être une chaine de caractères de 15 à 255 caractères.';
-    const INVALID_CONTENT = 'Le contenu de votre article doit faire au minimum 15 caractères.';
+    const INVALID_AUTHOR = 'Le nom de l\'auteur doit être composé de 3 à 30 caractères alphanumériques.';
+    const INVALID_TITLE = 'Le titre de votre article doit être une chaine de caractères de 10 à 100 caractères.';
+    const INVALID_PREFACE = 'La présentation de votre article doit être une chaine de caractères de 10 à 255 caractères.';
+    const INVALID_CONTENT = 'Le contenu de votre article doit faire au minimum 10 caractères.';
     const INVALID_LINK = 'Le lien entré semble ne pas être une URL correcte.';
 
     public function getLastDate()
@@ -72,9 +73,14 @@ class Post extends Entity
         return $this->updatedAt;
     }
 
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
     public function setAuthor($author)
     {
-        if (!is_string($author) || !preg_match('#^[a-zA-Z0-9].{3,20}$#', $author)) {
+        if (!is_string($author) || !preg_match('#^[a-zA-Z0-9].{3,30}$#', $author)) {
             $this->errors[] = self::INVALID_AUTHOR;
         } else {
             $this->author = $author;
@@ -83,7 +89,7 @@ class Post extends Entity
 
     public function setTitle($title)
     {
-        if (!is_string($title) || !preg_match('#^[a-zA-Z0-9].{0,255}$#', $title)) {
+        if (!is_string($title) || !preg_match('#^[a-zA-Z0-9].{10,100}$#', $title)) {
             $this->errors[] = self::INVALID_TITLE;
         } else {
             $this->title = $title;
@@ -92,7 +98,7 @@ class Post extends Entity
 
     public function setPreface($preface)
     {
-        if (!is_string($preface) || !preg_match('#^[a-zA-Z0-9].{15,255}$#', $preface)) {
+        if (!is_string($preface) || !preg_match('#^[a-zA-Z0-9].{10,255}$#', $preface)) {
             $this->errors[] = self::INVALID_PREFACE;
         } else {
             $this->preface = $preface;
@@ -101,7 +107,7 @@ class Post extends Entity
 
     public function setPostContent($postContent)
     {
-        if (!is_string($postContent) || !preg_match('#^[a-zA-Z0-9].{15,}$#', $postContent)) {
+        if (!is_string($postContent) || !preg_match('#^[a-zA-Z0-9].{10,}$#', $postContent)) {
             $this->errors[] = self::INVALID_CONTENT;
         } else {
             $this->postContent = $postContent;
@@ -125,5 +131,10 @@ class Post extends Entity
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
     }
 }

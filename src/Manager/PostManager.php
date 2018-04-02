@@ -40,8 +40,8 @@ class PostManager extends Manager
     public function addPost(Post $post)
     {
         $requete = $this->getDb()->prepare(
-            'INSERT INTO Post (author, title, link, preface, postContent, publishedAt) 
-            VALUES (:author, :title, :link, :preface, :postContent, :publishedAt)'
+            'INSERT INTO Post (author, title, link, preface, postContent, publishedAt, userId) 
+            VALUES (:author, :title, :link, :preface, :postContent, :publishedAt, :userId)'
         );
 
         $requete->bindValue(':author', $post->getAuthor());
@@ -50,6 +50,7 @@ class PostManager extends Manager
         $requete->bindValue(':preface', $post->getPreface(), \PDO::PARAM_STR);
         $requete->bindValue(':postContent', $post->getPostContent(), \PDO::PARAM_STR);
         $requete->bindValue(':publishedAt', $post->getPublishedAt());
+        $requete->bindValue(':userId', $post->getUserId());
 
         $requete->execute();
     }

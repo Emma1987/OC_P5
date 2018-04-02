@@ -17,7 +17,7 @@ class User extends Entity
     protected $resetAt;
     protected $role = 0;
 
-    const INVALID_USERNAME = 'Le nom d\'utilisateur doit être composé de 3 à 20 caractères alphanumériques.';
+    const INVALID_USERNAME = 'Le nom d\'utilisateur doit être composé de 3 à 30 caractères alphanumériques.';
     const INVALID_EMAIL = 'L\'email saisis semble ne pas être valide.';
     const INVALID_PASSWORD = 'Le mot de passe doit être composé de 8 et 20 caractères, et doit contenir au moins 1 lettre majuscule, 1 lettre minuscule et 1 chiffre.';
 
@@ -84,7 +84,7 @@ class User extends Entity
 
     public function setUsername($username)
     {
-        if (!preg_match('#^[a-zA-Z0-9].{3,20}$#', $username)) {
+        if (!preg_match('#^[a-zA-Z0-9].{3,30}$#', $username)) {
             $this->errors[] = self::INVALID_USERNAME;
         } else {
             $this->username = $username;

@@ -32,7 +32,8 @@ class CommentController extends Controller
                 'author'        => $request->postData('authorValue'),
                 'commentContent' => $request->postData('commentContent'),
                 'commentDate'   => (date_format(new \Datetime(), 'Y-m-d H:i:s')),
-                'postId'        => $request->getData('id')
+                'postId'        => $request->getData('id'),
+                'userId'        => Session::getInstance()->getAttribute('auth')->getId()
             ]);
 
             if ($comment->getErrors() != null) {

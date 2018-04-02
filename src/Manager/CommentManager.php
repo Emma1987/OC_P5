@@ -47,14 +47,15 @@ class CommentManager extends Manager
     public function addComment(Comment $comment)
     {
         $requete = $this->getDb()->prepare(
-            'INSERT INTO Comment (author, commentContent, commentDate, postId) 
-            VALUES (:author, :commentContent, :commentDate, :postId)'
+            'INSERT INTO Comment (author, commentContent, commentDate, postId, userId) 
+            VALUES (:author, :commentContent, :commentDate, :postId, :userId)'
         );
 
         $requete->bindValue(':author', $comment->getAuthor());
         $requete->bindValue(':commentContent', $comment->getCommentContent(), \PDO::PARAM_STR);
         $requete->bindValue(':commentDate', $comment->getCommentDate(), \PDO::PARAM_STR);
         $requete->bindValue(':postId', $comment->getPostId(), \PDO::PARAM_STR);
+        $requete->bindValue(':userId', $comment->getUserId());
 
         $requete->execute();
     }
