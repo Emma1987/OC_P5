@@ -5,6 +5,7 @@ namespace App;
 class Manager
 {
     protected $db;
+    protected $manager = [];
 
     public function __construct()
     {
